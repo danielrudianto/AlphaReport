@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d1e5e590bfc6489aa173fc8bd50b3263" Name="Diagram1" ZoomLevel="59">
+        <EntityTypeShape EntityType="alphaReportModel.AnswerForm" Width="1.5" PointX="7.5" PointY="34.75" />
+        <EntityTypeShape EntityType="alphaReportModel.Client" Width="1.5" PointX="3" PointY="21.125" />
+        <EntityTypeShape EntityType="alphaReportModel.ClientContact" Width="1.5" PointX="5.25" PointY="24.625" />
+        <EntityTypeShape EntityType="alphaReportModel.CodeAnswerForm" Width="1.5" PointX="3" PointY="40.5" />
+        <EntityTypeShape EntityType="alphaReportModel.CodeForm" Width="1.5" PointX="3" PointY="28.75" />
+        <EntityTypeShape EntityType="alphaReportModel.CodeProject" Width="1.5" PointX="8.25" PointY="25.75" />
+        <EntityTypeShape EntityType="alphaReportModel.CodeProjectDocument" Width="1.5" PointX="10.5" PointY="33.125" />
+        <EntityTypeShape EntityType="alphaReportModel.CodeProjectUser" Width="1.5" PointX="13.5" PointY="29.25" />
+        <EntityTypeShape EntityType="alphaReportModel.CodeReport" Width="1.5" PointX="10.5" PointY="23.125" />
+        <EntityTypeShape EntityType="alphaReportModel.FormQuestion" Width="1.5" PointX="5.25" PointY="28.75" />
+        <EntityTypeShape EntityType="alphaReportModel.ItemReport" Width="1.5" PointX="12.75" PointY="37.875" />
+        <EntityTypeShape EntityType="alphaReportModel.ObstacleCategory" Width="1.5" PointX="10.5" PointY="19.25" />
+        <EntityTypeShape EntityType="alphaReportModel.ObstacleReport" Width="1.5" PointX="12.75" PointY="21.25" />
+        <EntityTypeShape EntityType="alphaReportModel.ProgressReport" Width="1.5" PointX="15.75" PointY="35.875" />
+        <EntityTypeShape EntityType="alphaReportModel.Project" Width="1.5" PointX="10.5" PointY="45" />
+        <EntityTypeShape EntityType="alphaReportModel.RequestForInformation" Width="1.5" PointX="10.5" PointY="29" />
+        <EntityTypeShape EntityType="alphaReportModel.RequestForInformationAnswer" Width="1.5" PointX="18.75" PointY="30.875" />
+        <EntityTypeShape EntityType="alphaReportModel.StatusReport" Width="1.5" PointX="13.5" PointY="25.125" />
+        <EntityTypeShape EntityType="alphaReportModel.StatusReportImage" Width="1.5" PointX="15.75" PointY="25.5" />
+        <EntityTypeShape EntityType="alphaReportModel.Tool" Width="1.5" PointX="3" PointY="31.625" />
+        <EntityTypeShape EntityType="alphaReportModel.ToolReport" Width="1.5" PointX="15.75" PointY="28.5" />
+        <EntityTypeShape EntityType="alphaReportModel.User" Width="1.5" PointX="0.75" PointY="29.125" />
+        <EntityTypeShape EntityType="alphaReportModel.UserLogin" Width="1.5" PointX="3" PointY="37.875" />
+        <EntityTypeShape EntityType="alphaReportModel.UserPosition" Width="1.5" PointX="3" PointY="25.5" />
+        <EntityTypeShape EntityType="alphaReportModel.WeatherReport" Width="1.5" PointX="12.75" PointY="32.75" />
+        <EntityTypeShape EntityType="alphaReportModel.Worker" Width="1.5" PointX="3" PointY="34.75" />
+        <EntityTypeShape EntityType="alphaReportModel.WorkerReport" Width="1.5" PointX="15.75" PointY="32.125" />
+        <AssociationConnector Association="alphaReportModel.FK_AnswerForm_CodeAnswerForm" />
+        <AssociationConnector Association="alphaReportModel.FK_AnswerForm_FormQuestion" />
+        <AssociationConnector Association="alphaReportModel.FK_client_client" />
+        <AssociationConnector Association="alphaReportModel.FK_Client_Users" />
+        <AssociationConnector Association="alphaReportModel.FK_ClientContact_Client" />
+        <AssociationConnector Association="alphaReportModel.FK_codeProject_client" />
+        <AssociationConnector Association="alphaReportModel.FK_ClientContact_Users" />
+        <AssociationConnector Association="alphaReportModel.FK_CodeAnswerForm_Users" />
+        <AssociationConnector Association="alphaReportModel.FK_CodeForm_Users" />
+        <AssociationConnector Association="alphaReportModel.FK_FormQuestion_CodeForm" />
+        <AssociationConnector Association="alphaReportModel.FK_codeProject_users" />
+        <AssociationConnector Association="alphaReportModel.FK_codeProject_users1" />
+        <AssociationConnector Association="alphaReportModel.FK_CodeProjectDocument_CodeProject" />
+        <AssociationConnector Association="alphaReportModel.FK_CodeProjectUser_CodeProject" />
+        <AssociationConnector Association="alphaReportModel.FK_CodeReport_codeProject" />
+        <AssociationConnector Association="alphaReportModel.FK_Project_codeProject" />
+        <AssociationConnector Association="alphaReportModel.FK_RequestForInformation_CodeProject" />
+        <AssociationConnector Association="alphaReportModel.FK_StatusReport_CodeProject" />
+        <AssociationConnector Association="alphaReportModel.FK_CodeProjectDocument_User" />
+        <AssociationConnector Association="alphaReportModel.FK_CodeProjectUser_User" />
+        <AssociationConnector Association="alphaReportModel.FK_CodeReport_users" />
+        <AssociationConnector Association="alphaReportModel.FK_CodeReport_users1" />
+        <AssociationConnector Association="alphaReportModel.FK_ItemReport_CodeReport" />
+        <AssociationConnector Association="alphaReportModel.FK_ObstacleReport_CodeReport" />
+        <AssociationConnector Association="alphaReportModel.FK_ProgressReport_CodeReport" />
+        <AssociationConnector Association="alphaReportModel.FK_ToolReport_CodeReport" />
+        <AssociationConnector Association="alphaReportModel.FK_WeatherReport_CodeReport" />
+        <AssociationConnector Association="alphaReportModel.FK_WorkersReport_CodeReport" />
+        <AssociationConnector Association="alphaReportModel.FK_ObstacleReport_ObstacleCategory" />
+        <AssociationConnector Association="alphaReportModel.FK_ProgressReport_Project" />
+        <AssociationConnector Association="alphaReportModel.FK_RequestForInformation_Users" />
+        <AssociationConnector Association="alphaReportModel.FK_RequestForInformationAnswer_RequestForInformation" />
+        <AssociationConnector Association="alphaReportModel.FK_RequestForInformationAnswer_Users" />
+        <AssociationConnector Association="alphaReportModel.FK_StatusReport_Users" />
+        <AssociationConnector Association="alphaReportModel.FK_StatusReportImage_StatusReport" />
+        <AssociationConnector Association="alphaReportModel.FK_Tool_Users" />
+        <AssociationConnector Association="alphaReportModel.FK_ToolReport_Tool" />
+        <AssociationConnector Association="alphaReportModel.FK_UserLogin_Users" />
+        <AssociationConnector Association="alphaReportModel.FK_UserPosition_Users" />
+        <AssociationConnector Association="alphaReportModel.FK_UserPosition_Users1" />
+        <AssociationConnector Association="alphaReportModel.FK_Worker_Users" />
+        <AssociationConnector Association="alphaReportModel.FK_WorkersReport_Worker" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

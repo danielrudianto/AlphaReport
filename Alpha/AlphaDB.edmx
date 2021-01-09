@@ -1,0 +1,2427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="alphaReportModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AnswerForm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="text" Nullable="false" />
+          <Property Name="Note" Type="text" Nullable="false" />
+          <Property Name="CodeAnswerFormId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="text" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TaxIdentificationNumber" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClientContact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Position" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CodeAnswerForm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDelete" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CodeForm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CodeProject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="ConfirmedDate" Type="datetime" />
+          <Property Name="ConfirmedBy" Type="int" />
+          <Property Name="Address" Type="text" Nullable="false" />
+          <Property Name="DocumentName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsCompleted" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CodeProjectDocument">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Url" Type="text" Nullable="false" />
+          <Property Name="CodeProjectId" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CodeProjectUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CodeProjectId" Type="int" Nullable="false" />
+          <Property Name="Position" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CodeReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="CodeProjectId" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="IsConfirm" Type="tinyint" Nullable="false" />
+          <Property Name="ConfirmedBy" Type="int" />
+          <Property Name="ConfirmedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FormQuestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="text" Nullable="false" />
+          <Property Name="CodeFormId" Type="int" Nullable="false" />
+          <Property Name="IsDelete" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Quantity" Type="float" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="CodeReportId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ObstacleCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Color" Type="varchar" MaxLength="10" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ObstacleReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="CodeReportId" Type="int" Nullable="false" />
+          <Property Name="ObstacleCategoryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProgressReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="Value" Type="float" />
+          <Property Name="CodeReportId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="BudgetPrice" Type="float" />
+          <Property Name="Quantity" Type="float" />
+          <Property Name="Done" Type="float" />
+          <Property Name="IsDelete" Type="tinyint" Nullable="false" />
+          <Property Name="CodeProjectId" Type="int" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="EstimatedDuration" Type="float" />
+          <Property Name="Timeline" Type="int" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Unit" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RequestForInformation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CodeProjectId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="Header" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequestForInformationAnswer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Answer" Type="text" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="RequestForInformationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatusReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="text" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CodeProjectId" Type="int" />
+        </EntityType>
+        <EntityType Name="StatusReportImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="ImageUrl" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Tool">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ToolReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ToolId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="CodeReportId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="tinyint" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ImageUrl" Type="text" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPosition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Position" Type="int" Nullable="false" />
+          <Property Name="EffectiveDate" Type="date" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WeatherReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WeatherId" Type="int" Nullable="false" />
+          <Property Name="Time" Type="time" Precision="7" Nullable="false" />
+          <Property Name="IsDelete" Type="tinyint" Nullable="false" />
+          <Property Name="CodeReportId" Type="int" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkerReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WorkerId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="CodeReportId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AnswerForm_CodeAnswerForm">
+          <End Role="CodeAnswerForm" Type="Self.CodeAnswerForm" Multiplicity="1" />
+          <End Role="AnswerForm" Type="Self.AnswerForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeAnswerForm">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnswerForm">
+              <PropertyRef Name="CodeAnswerFormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AnswerForm_FormQuestion">
+          <End Role="FormQuestion" Type="Self.FormQuestion" Multiplicity="1" />
+          <End Role="AnswerForm" Type="Self.AnswerForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormQuestion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnswerForm">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_client_client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Client1" Type="Self.Client" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Users">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientContact_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ClientContact" Type="Self.ClientContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientContact">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientContact_Users">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ClientContact" Type="Self.ClientContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientContact">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeAnswerForm_Users">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CodeAnswerForm" Type="Self.CodeAnswerForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeAnswerForm">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeForm_Users">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CodeForm" Type="Self.CodeForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeForm">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeProject_client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="CodeProject" Type="Self.CodeProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProject">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeProject_users">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CodeProject" Type="Self.CodeProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProject">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeProject_users1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="CodeProject" Type="Self.CodeProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProject">
+              <PropertyRef Name="ConfirmedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeProjectDocument_CodeProject">
+          <End Role="CodeProject" Type="Self.CodeProject" Multiplicity="1" />
+          <End Role="CodeProjectDocument" Type="Self.CodeProjectDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeProject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProjectDocument">
+              <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeProjectDocument_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CodeProjectDocument" Type="Self.CodeProjectDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProjectDocument">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeProjectUser_CodeProject">
+          <End Role="CodeProject" Type="Self.CodeProject" Multiplicity="1" />
+          <End Role="CodeProjectUser" Type="Self.CodeProjectUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeProject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProjectUser">
+              <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeProjectUser_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CodeProjectUser" Type="Self.CodeProjectUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProjectUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeReport_codeProject">
+          <End Role="CodeProject" Type="Self.CodeProject" Multiplicity="1" />
+          <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeProject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeReport">
+              <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeReport_users">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeReport">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeReport_users1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeReport">
+              <PropertyRef Name="ConfirmedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormQuestion_CodeForm">
+          <End Role="CodeForm" Type="Self.CodeForm" Multiplicity="1" />
+          <End Role="FormQuestion" Type="Self.FormQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeForm">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FormQuestion">
+              <PropertyRef Name="CodeFormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemReport_CodeReport">
+          <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="1" />
+          <End Role="ItemReport" Type="Self.ItemReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemReport">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObstacleReport_CodeReport">
+          <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="1" />
+          <End Role="ObstacleReport" Type="Self.ObstacleReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ObstacleReport">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObstacleReport_ObstacleCategory">
+          <End Role="ObstacleCategory" Type="Self.ObstacleCategory" Multiplicity="1" />
+          <End Role="ObstacleReport" Type="Self.ObstacleReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObstacleCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ObstacleReport">
+              <PropertyRef Name="ObstacleCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgressReport_CodeReport">
+          <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="1" />
+          <End Role="ProgressReport" Type="Self.ProgressReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgressReport">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgressReport_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="ProgressReport" Type="Self.ProgressReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgressReport">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_codeProject">
+          <End Role="CodeProject" Type="Self.CodeProject" Multiplicity="1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeProject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestForInformation_CodeProject">
+          <End Role="CodeProject" Type="Self.CodeProject" Multiplicity="1" />
+          <End Role="RequestForInformation" Type="Self.RequestForInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeProject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RequestForInformation">
+              <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestForInformation_Users">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="RequestForInformation" Type="Self.RequestForInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RequestForInformation">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestForInformationAnswer_RequestForInformation">
+          <End Role="RequestForInformation" Type="Self.RequestForInformation" Multiplicity="1" />
+          <End Role="RequestForInformationAnswer" Type="Self.RequestForInformationAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestForInformation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RequestForInformationAnswer">
+              <PropertyRef Name="RequestForInformationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestForInformationAnswer_Users">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="RequestForInformationAnswer" Type="Self.RequestForInformationAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RequestForInformationAnswer">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StatusReport_CodeProject">
+          <End Role="CodeProject" Type="Self.CodeProject" Multiplicity="0..1" />
+          <End Role="StatusReport" Type="Self.StatusReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeProject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatusReport">
+              <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StatusReport_Users">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="StatusReport" Type="Self.StatusReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatusReport">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StatusReportImage_StatusReport">
+          <End Role="StatusReport" Type="Self.StatusReport" Multiplicity="0..1" />
+          <End Role="StatusReportImage" Type="Self.StatusReportImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatusReportImage">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tool_Users">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Tool" Type="Self.Tool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tool">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolReport_CodeReport">
+          <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="1" />
+          <End Role="ToolReport" Type="Self.ToolReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolReport">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolReport_Tool">
+          <End Role="Tool" Type="Self.Tool" Multiplicity="1" />
+          <End Role="ToolReport" Type="Self.ToolReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tool">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolReport">
+              <PropertyRef Name="ToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogin_Users">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPosition_Users">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPosition" Type="Self.UserPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPosition">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPosition_Users1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserPosition" Type="Self.UserPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPosition">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherReport_CodeReport">
+          <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="0..1" />
+          <End Role="WeatherReport" Type="Self.WeatherReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WeatherReport">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Users">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Worker" Type="Self.Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkersReport_CodeReport">
+          <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="1" />
+          <End Role="WorkerReport" Type="Self.WorkerReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkerReport">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkersReport_Worker">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
+          <End Role="WorkerReport" Type="Self.WorkerReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkerReport">
+              <PropertyRef Name="WorkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="alphaReportModelStoreContainer">
+          <EntitySet Name="AnswerForm" EntityType="Self.AnswerForm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientContact" EntityType="Self.ClientContact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodeAnswerForm" EntityType="Self.CodeAnswerForm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodeForm" EntityType="Self.CodeForm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodeProject" EntityType="Self.CodeProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodeProjectDocument" EntityType="Self.CodeProjectDocument" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodeProjectUser" EntityType="Self.CodeProjectUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodeReport" EntityType="Self.CodeReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormQuestion" EntityType="Self.FormQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemReport" EntityType="Self.ItemReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ObstacleCategory" EntityType="Self.ObstacleCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ObstacleReport" EntityType="Self.ObstacleReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProgressReport" EntityType="Self.ProgressReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestForInformation" EntityType="Self.RequestForInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestForInformationAnswer" EntityType="Self.RequestForInformationAnswer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusReport" EntityType="Self.StatusReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusReportImage" EntityType="Self.StatusReportImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tool" EntityType="Self.Tool" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToolReport" EntityType="Self.ToolReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPosition" EntityType="Self.UserPosition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WeatherReport" EntityType="Self.WeatherReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkerReport" EntityType="Self.WorkerReport" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AnswerForm_CodeAnswerForm" Association="Self.FK_AnswerForm_CodeAnswerForm">
+            <End Role="CodeAnswerForm" EntitySet="CodeAnswerForm" />
+            <End Role="AnswerForm" EntitySet="AnswerForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnswerForm_FormQuestion" Association="Self.FK_AnswerForm_FormQuestion">
+            <End Role="FormQuestion" EntitySet="FormQuestion" />
+            <End Role="AnswerForm" EntitySet="AnswerForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_client_client" Association="Self.FK_client_client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Client1" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Users" Association="Self.FK_Client_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientContact_Client" Association="Self.FK_ClientContact_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientContact" EntitySet="ClientContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientContact_Users" Association="Self.FK_ClientContact_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="ClientContact" EntitySet="ClientContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeAnswerForm_Users" Association="Self.FK_CodeAnswerForm_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeAnswerForm" EntitySet="CodeAnswerForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeForm_Users" Association="Self.FK_CodeForm_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeForm" EntitySet="CodeForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeProject_client" Association="Self.FK_codeProject_client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="CodeProject" EntitySet="CodeProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeProject_users" Association="Self.FK_codeProject_users">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeProject" EntitySet="CodeProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeProject_users1" Association="Self.FK_codeProject_users1">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeProject" EntitySet="CodeProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeProjectDocument_CodeProject" Association="Self.FK_CodeProjectDocument_CodeProject">
+            <End Role="CodeProject" EntitySet="CodeProject" />
+            <End Role="CodeProjectDocument" EntitySet="CodeProjectDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeProjectDocument_User" Association="Self.FK_CodeProjectDocument_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeProjectDocument" EntitySet="CodeProjectDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeProjectUser_CodeProject" Association="Self.FK_CodeProjectUser_CodeProject">
+            <End Role="CodeProject" EntitySet="CodeProject" />
+            <End Role="CodeProjectUser" EntitySet="CodeProjectUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeProjectUser_User" Association="Self.FK_CodeProjectUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeProjectUser" EntitySet="CodeProjectUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeReport_codeProject" Association="Self.FK_CodeReport_codeProject">
+            <End Role="CodeProject" EntitySet="CodeProject" />
+            <End Role="CodeReport" EntitySet="CodeReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeReport_users" Association="Self.FK_CodeReport_users">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeReport" EntitySet="CodeReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeReport_users1" Association="Self.FK_CodeReport_users1">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeReport" EntitySet="CodeReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormQuestion_CodeForm" Association="Self.FK_FormQuestion_CodeForm">
+            <End Role="CodeForm" EntitySet="CodeForm" />
+            <End Role="FormQuestion" EntitySet="FormQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemReport_CodeReport" Association="Self.FK_ItemReport_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="ItemReport" EntitySet="ItemReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObstacleReport_CodeReport" Association="Self.FK_ObstacleReport_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="ObstacleReport" EntitySet="ObstacleReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObstacleReport_ObstacleCategory" Association="Self.FK_ObstacleReport_ObstacleCategory">
+            <End Role="ObstacleCategory" EntitySet="ObstacleCategory" />
+            <End Role="ObstacleReport" EntitySet="ObstacleReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgressReport_CodeReport" Association="Self.FK_ProgressReport_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="ProgressReport" EntitySet="ProgressReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgressReport_Project" Association="Self.FK_ProgressReport_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="ProgressReport" EntitySet="ProgressReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_codeProject" Association="Self.FK_Project_codeProject">
+            <End Role="CodeProject" EntitySet="CodeProject" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestForInformation_CodeProject" Association="Self.FK_RequestForInformation_CodeProject">
+            <End Role="CodeProject" EntitySet="CodeProject" />
+            <End Role="RequestForInformation" EntitySet="RequestForInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestForInformation_Users" Association="Self.FK_RequestForInformation_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="RequestForInformation" EntitySet="RequestForInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestForInformationAnswer_RequestForInformation" Association="Self.FK_RequestForInformationAnswer_RequestForInformation">
+            <End Role="RequestForInformation" EntitySet="RequestForInformation" />
+            <End Role="RequestForInformationAnswer" EntitySet="RequestForInformationAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestForInformationAnswer_Users" Association="Self.FK_RequestForInformationAnswer_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="RequestForInformationAnswer" EntitySet="RequestForInformationAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatusReport_CodeProject" Association="Self.FK_StatusReport_CodeProject">
+            <End Role="CodeProject" EntitySet="CodeProject" />
+            <End Role="StatusReport" EntitySet="StatusReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatusReport_Users" Association="Self.FK_StatusReport_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="StatusReport" EntitySet="StatusReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatusReportImage_StatusReport" Association="Self.FK_StatusReportImage_StatusReport">
+            <End Role="StatusReport" EntitySet="StatusReport" />
+            <End Role="StatusReportImage" EntitySet="StatusReportImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tool_Users" Association="Self.FK_Tool_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="Tool" EntitySet="Tool" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolReport_CodeReport" Association="Self.FK_ToolReport_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="ToolReport" EntitySet="ToolReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolReport_Tool" Association="Self.FK_ToolReport_Tool">
+            <End Role="Tool" EntitySet="Tool" />
+            <End Role="ToolReport" EntitySet="ToolReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogin_Users" Association="Self.FK_UserLogin_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserLogin" EntitySet="UserLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPosition_Users" Association="Self.FK_UserPosition_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPosition" EntitySet="UserPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPosition_Users1" Association="Self.FK_UserPosition_Users1">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPosition" EntitySet="UserPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherReport_CodeReport" Association="Self.FK_WeatherReport_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="WeatherReport" EntitySet="WeatherReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Users" Association="Self.FK_Worker_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkersReport_CodeReport" Association="Self.FK_WorkersReport_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="WorkerReport" EntitySet="WorkerReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkersReport_Worker" Association="Self.FK_WorkersReport_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="WorkerReport" EntitySet="WorkerReport" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="alphaReportModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="alphaReportEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AnswerForm" EntityType="alphaReportModel.AnswerForm" />
+          <EntitySet Name="Client" EntityType="alphaReportModel.Client" />
+          <EntitySet Name="ClientContact" EntityType="alphaReportModel.ClientContact" />
+          <EntitySet Name="CodeAnswerForm" EntityType="alphaReportModel.CodeAnswerForm" />
+          <EntitySet Name="CodeForm" EntityType="alphaReportModel.CodeForm" />
+          <EntitySet Name="CodeProject" EntityType="alphaReportModel.CodeProject" />
+          <EntitySet Name="CodeProjectDocument" EntityType="alphaReportModel.CodeProjectDocument" />
+          <EntitySet Name="CodeProjectUser" EntityType="alphaReportModel.CodeProjectUser" />
+          <EntitySet Name="CodeReport" EntityType="alphaReportModel.CodeReport" />
+          <EntitySet Name="FormQuestion" EntityType="alphaReportModel.FormQuestion" />
+          <EntitySet Name="ItemReport" EntityType="alphaReportModel.ItemReport" />
+          <EntitySet Name="ObstacleCategory" EntityType="alphaReportModel.ObstacleCategory" />
+          <EntitySet Name="ObstacleReport" EntityType="alphaReportModel.ObstacleReport" />
+          <EntitySet Name="ProgressReport" EntityType="alphaReportModel.ProgressReport" />
+          <EntitySet Name="Project" EntityType="alphaReportModel.Project" />
+          <EntitySet Name="RequestForInformation" EntityType="alphaReportModel.RequestForInformation" />
+          <EntitySet Name="RequestForInformationAnswer" EntityType="alphaReportModel.RequestForInformationAnswer" />
+          <EntitySet Name="StatusReport" EntityType="alphaReportModel.StatusReport" />
+          <EntitySet Name="StatusReportImage" EntityType="alphaReportModel.StatusReportImage" />
+          <EntitySet Name="Tool" EntityType="alphaReportModel.Tool" />
+          <EntitySet Name="ToolReport" EntityType="alphaReportModel.ToolReport" />
+          <EntitySet Name="User" EntityType="alphaReportModel.User" />
+          <EntitySet Name="UserLogin" EntityType="alphaReportModel.UserLogin" />
+          <EntitySet Name="UserPosition" EntityType="alphaReportModel.UserPosition" />
+          <EntitySet Name="WeatherReport" EntityType="alphaReportModel.WeatherReport" />
+          <EntitySet Name="Worker" EntityType="alphaReportModel.Worker" />
+          <EntitySet Name="WorkerReport" EntityType="alphaReportModel.WorkerReport" />
+          <AssociationSet Name="FK_AnswerForm_CodeAnswerForm" Association="alphaReportModel.FK_AnswerForm_CodeAnswerForm">
+            <End Role="CodeAnswerForm" EntitySet="CodeAnswerForm" />
+            <End Role="AnswerForm" EntitySet="AnswerForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnswerForm_FormQuestion" Association="alphaReportModel.FK_AnswerForm_FormQuestion">
+            <End Role="FormQuestion" EntitySet="FormQuestion" />
+            <End Role="AnswerForm" EntitySet="AnswerForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_client_client" Association="alphaReportModel.FK_client_client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Client1" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Users" Association="alphaReportModel.FK_Client_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientContact_Client" Association="alphaReportModel.FK_ClientContact_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientContact" EntitySet="ClientContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeProject_client" Association="alphaReportModel.FK_codeProject_client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="CodeProject" EntitySet="CodeProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientContact_Users" Association="alphaReportModel.FK_ClientContact_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="ClientContact" EntitySet="ClientContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeAnswerForm_Users" Association="alphaReportModel.FK_CodeAnswerForm_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeAnswerForm" EntitySet="CodeAnswerForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeForm_Users" Association="alphaReportModel.FK_CodeForm_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeForm" EntitySet="CodeForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormQuestion_CodeForm" Association="alphaReportModel.FK_FormQuestion_CodeForm">
+            <End Role="CodeForm" EntitySet="CodeForm" />
+            <End Role="FormQuestion" EntitySet="FormQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeProject_users" Association="alphaReportModel.FK_codeProject_users">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeProject" EntitySet="CodeProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_codeProject_users1" Association="alphaReportModel.FK_codeProject_users1">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeProject" EntitySet="CodeProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeProjectDocument_CodeProject" Association="alphaReportModel.FK_CodeProjectDocument_CodeProject">
+            <End Role="CodeProject" EntitySet="CodeProject" />
+            <End Role="CodeProjectDocument" EntitySet="CodeProjectDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeProjectUser_CodeProject" Association="alphaReportModel.FK_CodeProjectUser_CodeProject">
+            <End Role="CodeProject" EntitySet="CodeProject" />
+            <End Role="CodeProjectUser" EntitySet="CodeProjectUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeReport_codeProject" Association="alphaReportModel.FK_CodeReport_codeProject">
+            <End Role="CodeProject" EntitySet="CodeProject" />
+            <End Role="CodeReport" EntitySet="CodeReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_codeProject" Association="alphaReportModel.FK_Project_codeProject">
+            <End Role="CodeProject" EntitySet="CodeProject" />
+            <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestForInformation_CodeProject" Association="alphaReportModel.FK_RequestForInformation_CodeProject">
+            <End Role="CodeProject" EntitySet="CodeProject" />
+            <End Role="RequestForInformation" EntitySet="RequestForInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatusReport_CodeProject" Association="alphaReportModel.FK_StatusReport_CodeProject">
+            <End Role="CodeProject" EntitySet="CodeProject" />
+            <End Role="StatusReport" EntitySet="StatusReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeProjectDocument_User" Association="alphaReportModel.FK_CodeProjectDocument_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeProjectDocument" EntitySet="CodeProjectDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeProjectUser_User" Association="alphaReportModel.FK_CodeProjectUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeProjectUser" EntitySet="CodeProjectUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeReport_users" Association="alphaReportModel.FK_CodeReport_users">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeReport" EntitySet="CodeReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CodeReport_users1" Association="alphaReportModel.FK_CodeReport_users1">
+            <End Role="User" EntitySet="User" />
+            <End Role="CodeReport" EntitySet="CodeReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemReport_CodeReport" Association="alphaReportModel.FK_ItemReport_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="ItemReport" EntitySet="ItemReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObstacleReport_CodeReport" Association="alphaReportModel.FK_ObstacleReport_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="ObstacleReport" EntitySet="ObstacleReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgressReport_CodeReport" Association="alphaReportModel.FK_ProgressReport_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="ProgressReport" EntitySet="ProgressReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolReport_CodeReport" Association="alphaReportModel.FK_ToolReport_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="ToolReport" EntitySet="ToolReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WeatherReport_CodeReport" Association="alphaReportModel.FK_WeatherReport_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="WeatherReport" EntitySet="WeatherReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkersReport_CodeReport" Association="alphaReportModel.FK_WorkersReport_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="WorkerReport" EntitySet="WorkerReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObstacleReport_ObstacleCategory" Association="alphaReportModel.FK_ObstacleReport_ObstacleCategory">
+            <End Role="ObstacleCategory" EntitySet="ObstacleCategory" />
+            <End Role="ObstacleReport" EntitySet="ObstacleReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgressReport_Project" Association="alphaReportModel.FK_ProgressReport_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="ProgressReport" EntitySet="ProgressReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestForInformation_Users" Association="alphaReportModel.FK_RequestForInformation_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="RequestForInformation" EntitySet="RequestForInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestForInformationAnswer_RequestForInformation" Association="alphaReportModel.FK_RequestForInformationAnswer_RequestForInformation">
+            <End Role="RequestForInformation" EntitySet="RequestForInformation" />
+            <End Role="RequestForInformationAnswer" EntitySet="RequestForInformationAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestForInformationAnswer_Users" Association="alphaReportModel.FK_RequestForInformationAnswer_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="RequestForInformationAnswer" EntitySet="RequestForInformationAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatusReport_Users" Association="alphaReportModel.FK_StatusReport_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="StatusReport" EntitySet="StatusReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StatusReportImage_StatusReport" Association="alphaReportModel.FK_StatusReportImage_StatusReport">
+            <End Role="StatusReport" EntitySet="StatusReport" />
+            <End Role="StatusReportImage" EntitySet="StatusReportImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tool_Users" Association="alphaReportModel.FK_Tool_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="Tool" EntitySet="Tool" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToolReport_Tool" Association="alphaReportModel.FK_ToolReport_Tool">
+            <End Role="Tool" EntitySet="Tool" />
+            <End Role="ToolReport" EntitySet="ToolReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogin_Users" Association="alphaReportModel.FK_UserLogin_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserLogin" EntitySet="UserLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPosition_Users" Association="alphaReportModel.FK_UserPosition_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPosition" EntitySet="UserPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPosition_Users1" Association="alphaReportModel.FK_UserPosition_Users1">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPosition" EntitySet="UserPosition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Worker_Users" Association="alphaReportModel.FK_Worker_Users">
+            <End Role="User" EntitySet="User" />
+            <End Role="Worker" EntitySet="Worker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkersReport_Worker" Association="alphaReportModel.FK_WorkersReport_Worker">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="WorkerReport" EntitySet="WorkerReport" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AnswerForm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CodeAnswerFormId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CodeAnswerForm" Relationship="alphaReportModel.FK_AnswerForm_CodeAnswerForm" FromRole="AnswerForm" ToRole="CodeAnswerForm" />
+          <NavigationProperty Name="FormQuestion" Relationship="alphaReportModel.FK_AnswerForm_FormQuestion" FromRole="AnswerForm" ToRole="FormQuestion" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaxIdentificationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Client1" Relationship="alphaReportModel.FK_client_client" FromRole="Client" ToRole="Client1" />
+          <NavigationProperty Name="Client2" Relationship="alphaReportModel.FK_client_client" FromRole="Client1" ToRole="Client" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_Client_Users" FromRole="Client" ToRole="User" />
+          <NavigationProperty Name="ClientContact" Relationship="alphaReportModel.FK_ClientContact_Client" FromRole="Client" ToRole="ClientContact" />
+          <NavigationProperty Name="CodeProject" Relationship="alphaReportModel.FK_codeProject_client" FromRole="Client" ToRole="CodeProject" />
+        </EntityType>
+        <EntityType Name="ClientContact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="alphaReportModel.FK_ClientContact_Client" FromRole="ClientContact" ToRole="Client" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_ClientContact_Users" FromRole="ClientContact" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CodeAnswerForm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDelete" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="AnswerForm" Relationship="alphaReportModel.FK_AnswerForm_CodeAnswerForm" FromRole="CodeAnswerForm" ToRole="AnswerForm" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_CodeAnswerForm_Users" FromRole="CodeAnswerForm" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CodeForm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_CodeForm_Users" FromRole="CodeForm" ToRole="User" />
+          <NavigationProperty Name="FormQuestion" Relationship="alphaReportModel.FK_FormQuestion_CodeForm" FromRole="CodeForm" ToRole="FormQuestion" />
+        </EntityType>
+        <EntityType Name="CodeProject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ConfirmedDate" Type="DateTime" Precision="3" />
+          <Property Name="ConfirmedBy" Type="Int32" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsCompleted" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="alphaReportModel.FK_codeProject_client" FromRole="CodeProject" ToRole="Client" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_codeProject_users" FromRole="CodeProject" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="alphaReportModel.FK_codeProject_users1" FromRole="CodeProject" ToRole="User" />
+          <NavigationProperty Name="CodeProjectDocument" Relationship="alphaReportModel.FK_CodeProjectDocument_CodeProject" FromRole="CodeProject" ToRole="CodeProjectDocument" />
+          <NavigationProperty Name="CodeProjectUser" Relationship="alphaReportModel.FK_CodeProjectUser_CodeProject" FromRole="CodeProject" ToRole="CodeProjectUser" />
+          <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_CodeReport_codeProject" FromRole="CodeProject" ToRole="CodeReport" />
+          <NavigationProperty Name="Project" Relationship="alphaReportModel.FK_Project_codeProject" FromRole="CodeProject" ToRole="Project" />
+          <NavigationProperty Name="RequestForInformation" Relationship="alphaReportModel.FK_RequestForInformation_CodeProject" FromRole="CodeProject" ToRole="RequestForInformation" />
+          <NavigationProperty Name="StatusReport" Relationship="alphaReportModel.FK_StatusReport_CodeProject" FromRole="CodeProject" ToRole="StatusReport" />
+        </EntityType>
+        <EntityType Name="CodeProjectDocument">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CodeProjectId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CodeProject" Relationship="alphaReportModel.FK_CodeProjectDocument_CodeProject" FromRole="CodeProjectDocument" ToRole="CodeProject" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_CodeProjectDocument_User" FromRole="CodeProjectDocument" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CodeProjectUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CodeProjectId" Type="Int32" Nullable="false" />
+          <Property Name="Position" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CodeProject" Relationship="alphaReportModel.FK_CodeProjectUser_CodeProject" FromRole="CodeProjectUser" ToRole="CodeProject" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_CodeProjectUser_User" FromRole="CodeProjectUser" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CodeReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CodeProjectId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="IsConfirm" Type="Byte" Nullable="false" />
+          <Property Name="ConfirmedBy" Type="Int32" />
+          <Property Name="ConfirmedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CodeProject" Relationship="alphaReportModel.FK_CodeReport_codeProject" FromRole="CodeReport" ToRole="CodeProject" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_CodeReport_users" FromRole="CodeReport" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="alphaReportModel.FK_CodeReport_users1" FromRole="CodeReport" ToRole="User" />
+          <NavigationProperty Name="ItemReport" Relationship="alphaReportModel.FK_ItemReport_CodeReport" FromRole="CodeReport" ToRole="ItemReport" />
+          <NavigationProperty Name="ObstacleReport" Relationship="alphaReportModel.FK_ObstacleReport_CodeReport" FromRole="CodeReport" ToRole="ObstacleReport" />
+          <NavigationProperty Name="ProgressReport" Relationship="alphaReportModel.FK_ProgressReport_CodeReport" FromRole="CodeReport" ToRole="ProgressReport" />
+          <NavigationProperty Name="ToolReport" Relationship="alphaReportModel.FK_ToolReport_CodeReport" FromRole="CodeReport" ToRole="ToolReport" />
+          <NavigationProperty Name="WeatherReport" Relationship="alphaReportModel.FK_WeatherReport_CodeReport" FromRole="CodeReport" ToRole="WeatherReport" />
+          <NavigationProperty Name="WorkerReport" Relationship="alphaReportModel.FK_WorkersReport_CodeReport" FromRole="CodeReport" ToRole="WorkerReport" />
+        </EntityType>
+        <EntityType Name="FormQuestion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CodeFormId" Type="Int32" Nullable="false" />
+          <Property Name="IsDelete" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="AnswerForm" Relationship="alphaReportModel.FK_AnswerForm_FormQuestion" FromRole="FormQuestion" ToRole="AnswerForm" />
+          <NavigationProperty Name="CodeForm" Relationship="alphaReportModel.FK_FormQuestion_CodeForm" FromRole="FormQuestion" ToRole="CodeForm" />
+        </EntityType>
+        <EntityType Name="ItemReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Double" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="CodeReportId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_ItemReport_CodeReport" FromRole="ItemReport" ToRole="CodeReport" />
+        </EntityType>
+        <EntityType Name="ObstacleCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ObstacleReport" Relationship="alphaReportModel.FK_ObstacleReport_ObstacleCategory" FromRole="ObstacleCategory" ToRole="ObstacleReport" />
+        </EntityType>
+        <EntityType Name="ObstacleReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CodeReportId" Type="Int32" Nullable="false" />
+          <Property Name="ObstacleCategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_ObstacleReport_CodeReport" FromRole="ObstacleReport" ToRole="CodeReport" />
+          <NavigationProperty Name="ObstacleCategory" Relationship="alphaReportModel.FK_ObstacleReport_ObstacleCategory" FromRole="ObstacleReport" ToRole="ObstacleCategory" />
+        </EntityType>
+        <EntityType Name="ProgressReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="Double" />
+          <Property Name="CodeReportId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_ProgressReport_CodeReport" FromRole="ProgressReport" ToRole="CodeReport" />
+          <NavigationProperty Name="Project" Relationship="alphaReportModel.FK_ProgressReport_Project" FromRole="ProgressReport" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BudgetPrice" Type="Double" />
+          <Property Name="Quantity" Type="Double" />
+          <Property Name="Done" Type="Double" />
+          <Property Name="IsDelete" Type="Byte" Nullable="false" />
+          <Property Name="CodeProjectId" Type="Int32" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="EstimatedDuration" Type="Double" />
+          <Property Name="Timeline" Type="Int32" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CodeProject" Relationship="alphaReportModel.FK_Project_codeProject" FromRole="Project" ToRole="CodeProject" />
+          <NavigationProperty Name="ProgressReport" Relationship="alphaReportModel.FK_ProgressReport_Project" FromRole="Project" ToRole="ProgressReport" />
+        </EntityType>
+        <EntityType Name="RequestForInformation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CodeProjectId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Header" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CodeProject" Relationship="alphaReportModel.FK_RequestForInformation_CodeProject" FromRole="RequestForInformation" ToRole="CodeProject" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_RequestForInformation_Users" FromRole="RequestForInformation" ToRole="User" />
+          <NavigationProperty Name="RequestForInformationAnswer" Relationship="alphaReportModel.FK_RequestForInformationAnswer_RequestForInformation" FromRole="RequestForInformation" ToRole="RequestForInformationAnswer" />
+        </EntityType>
+        <EntityType Name="RequestForInformationAnswer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Answer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RequestForInformationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RequestForInformation" Relationship="alphaReportModel.FK_RequestForInformationAnswer_RequestForInformation" FromRole="RequestForInformationAnswer" ToRole="RequestForInformation" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_RequestForInformationAnswer_Users" FromRole="RequestForInformationAnswer" ToRole="User" />
+        </EntityType>
+        <EntityType Name="StatusReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CodeProjectId" Type="Int32" />
+          <NavigationProperty Name="CodeProject" Relationship="alphaReportModel.FK_StatusReport_CodeProject" FromRole="StatusReport" ToRole="CodeProject" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_StatusReport_Users" FromRole="StatusReport" ToRole="User" />
+          <NavigationProperty Name="StatusReportImage" Relationship="alphaReportModel.FK_StatusReportImage_StatusReport" FromRole="StatusReport" ToRole="StatusReportImage" />
+        </EntityType>
+        <EntityType Name="StatusReportImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="ImageUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StatusReport" Relationship="alphaReportModel.FK_StatusReportImage_StatusReport" FromRole="StatusReportImage" ToRole="StatusReport" />
+        </EntityType>
+        <EntityType Name="Tool">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_Tool_Users" FromRole="Tool" ToRole="User" />
+          <NavigationProperty Name="ToolReport" Relationship="alphaReportModel.FK_ToolReport_Tool" FromRole="Tool" ToRole="ToolReport" />
+        </EntityType>
+        <EntityType Name="ToolReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ToolId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="CodeReportId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_ToolReport_CodeReport" FromRole="ToolReport" ToRole="CodeReport" />
+          <NavigationProperty Name="Tool" Relationship="alphaReportModel.FK_ToolReport_Tool" FromRole="ToolReport" ToRole="Tool" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Byte" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Client" Relationship="alphaReportModel.FK_Client_Users" FromRole="User" ToRole="Client" />
+          <NavigationProperty Name="ClientContact" Relationship="alphaReportModel.FK_ClientContact_Users" FromRole="User" ToRole="ClientContact" />
+          <NavigationProperty Name="CodeAnswerForm" Relationship="alphaReportModel.FK_CodeAnswerForm_Users" FromRole="User" ToRole="CodeAnswerForm" />
+          <NavigationProperty Name="CodeForm" Relationship="alphaReportModel.FK_CodeForm_Users" FromRole="User" ToRole="CodeForm" />
+          <NavigationProperty Name="CodeProject" Relationship="alphaReportModel.FK_codeProject_users" FromRole="User" ToRole="CodeProject" />
+          <NavigationProperty Name="CodeProject1" Relationship="alphaReportModel.FK_codeProject_users1" FromRole="User" ToRole="CodeProject" />
+          <NavigationProperty Name="CodeProjectDocument" Relationship="alphaReportModel.FK_CodeProjectDocument_User" FromRole="User" ToRole="CodeProjectDocument" />
+          <NavigationProperty Name="CodeProjectUser" Relationship="alphaReportModel.FK_CodeProjectUser_User" FromRole="User" ToRole="CodeProjectUser" />
+          <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_CodeReport_users" FromRole="User" ToRole="CodeReport" />
+          <NavigationProperty Name="CodeReport1" Relationship="alphaReportModel.FK_CodeReport_users1" FromRole="User" ToRole="CodeReport" />
+          <NavigationProperty Name="RequestForInformation" Relationship="alphaReportModel.FK_RequestForInformation_Users" FromRole="User" ToRole="RequestForInformation" />
+          <NavigationProperty Name="RequestForInformationAnswer" Relationship="alphaReportModel.FK_RequestForInformationAnswer_Users" FromRole="User" ToRole="RequestForInformationAnswer" />
+          <NavigationProperty Name="StatusReport" Relationship="alphaReportModel.FK_StatusReport_Users" FromRole="User" ToRole="StatusReport" />
+          <NavigationProperty Name="Tool" Relationship="alphaReportModel.FK_Tool_Users" FromRole="User" ToRole="Tool" />
+          <NavigationProperty Name="UserLogin" Relationship="alphaReportModel.FK_UserLogin_Users" FromRole="User" ToRole="UserLogin" />
+          <NavigationProperty Name="UserPosition" Relationship="alphaReportModel.FK_UserPosition_Users" FromRole="User" ToRole="UserPosition" />
+          <NavigationProperty Name="UserPosition1" Relationship="alphaReportModel.FK_UserPosition_Users1" FromRole="User" ToRole="UserPosition" />
+          <NavigationProperty Name="Worker" Relationship="alphaReportModel.FK_Worker_Users" FromRole="User" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_UserLogin_Users" FromRole="UserLogin" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserPosition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Position" Type="Int32" Nullable="false" />
+          <Property Name="EffectiveDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_UserPosition_Users" FromRole="UserPosition" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="alphaReportModel.FK_UserPosition_Users1" FromRole="UserPosition" ToRole="User" />
+        </EntityType>
+        <EntityType Name="WeatherReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WeatherId" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="IsDelete" Type="Byte" Nullable="false" />
+          <Property Name="CodeReportId" Type="Int32" />
+          <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_WeatherReport_CodeReport" FromRole="WeatherReport" ToRole="CodeReport" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_Worker_Users" FromRole="Worker" ToRole="User" />
+          <NavigationProperty Name="WorkerReport" Relationship="alphaReportModel.FK_WorkersReport_Worker" FromRole="Worker" ToRole="WorkerReport" />
+        </EntityType>
+        <EntityType Name="WorkerReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkerId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="CodeReportId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_WorkersReport_CodeReport" FromRole="WorkerReport" ToRole="CodeReport" />
+          <NavigationProperty Name="Worker" Relationship="alphaReportModel.FK_WorkersReport_Worker" FromRole="WorkerReport" ToRole="Worker" />
+        </EntityType>
+        <Association Name="FK_AnswerForm_CodeAnswerForm">
+          <End Type="alphaReportModel.CodeAnswerForm" Role="CodeAnswerForm" Multiplicity="1" />
+          <End Type="alphaReportModel.AnswerForm" Role="AnswerForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeAnswerForm">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnswerForm">
+              <PropertyRef Name="CodeAnswerFormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AnswerForm_FormQuestion">
+          <End Type="alphaReportModel.FormQuestion" Role="FormQuestion" Multiplicity="1" />
+          <End Type="alphaReportModel.AnswerForm" Role="AnswerForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormQuestion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AnswerForm">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_client_client">
+          <End Type="alphaReportModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="alphaReportModel.Client" Role="Client1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientContact_Client">
+          <End Type="alphaReportModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="alphaReportModel.ClientContact" Role="ClientContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientContact">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeProject_client">
+          <End Type="alphaReportModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="alphaReportModel.CodeProject" Role="CodeProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProject">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientContact_Users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.ClientContact" Role="ClientContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClientContact">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeAnswerForm_Users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.CodeAnswerForm" Role="CodeAnswerForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeAnswerForm">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeForm_Users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.CodeForm" Role="CodeForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeForm">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormQuestion_CodeForm">
+          <End Type="alphaReportModel.CodeForm" Role="CodeForm" Multiplicity="1" />
+          <End Type="alphaReportModel.FormQuestion" Role="FormQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeForm">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FormQuestion">
+              <PropertyRef Name="CodeFormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeProject_users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.CodeProject" Role="CodeProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProject">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_codeProject_users1">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="alphaReportModel.CodeProject" Role="CodeProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProject">
+              <PropertyRef Name="ConfirmedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeProjectDocument_CodeProject">
+          <End Type="alphaReportModel.CodeProject" Role="CodeProject" Multiplicity="1" />
+          <End Type="alphaReportModel.CodeProjectDocument" Role="CodeProjectDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeProject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProjectDocument">
+              <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeProjectUser_CodeProject">
+          <End Type="alphaReportModel.CodeProject" Role="CodeProject" Multiplicity="1" />
+          <End Type="alphaReportModel.CodeProjectUser" Role="CodeProjectUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeProject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProjectUser">
+              <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeReport_codeProject">
+          <End Type="alphaReportModel.CodeProject" Role="CodeProject" Multiplicity="1" />
+          <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeProject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeReport">
+              <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_codeProject">
+          <End Type="alphaReportModel.CodeProject" Role="CodeProject" Multiplicity="1" />
+          <End Type="alphaReportModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeProject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestForInformation_CodeProject">
+          <End Type="alphaReportModel.CodeProject" Role="CodeProject" Multiplicity="1" />
+          <End Type="alphaReportModel.RequestForInformation" Role="RequestForInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeProject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RequestForInformation">
+              <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StatusReport_CodeProject">
+          <End Type="alphaReportModel.CodeProject" Role="CodeProject" Multiplicity="0..1" />
+          <End Type="alphaReportModel.StatusReport" Role="StatusReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeProject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatusReport">
+              <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeProjectDocument_User">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.CodeProjectDocument" Role="CodeProjectDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProjectDocument">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeProjectUser_User">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.CodeProjectUser" Role="CodeProjectUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeProjectUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeReport_users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeReport">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CodeReport_users1">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CodeReport">
+              <PropertyRef Name="ConfirmedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemReport_CodeReport">
+          <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="1" />
+          <End Type="alphaReportModel.ItemReport" Role="ItemReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ItemReport">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObstacleReport_CodeReport">
+          <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="1" />
+          <End Type="alphaReportModel.ObstacleReport" Role="ObstacleReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ObstacleReport">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgressReport_CodeReport">
+          <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="1" />
+          <End Type="alphaReportModel.ProgressReport" Role="ProgressReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgressReport">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolReport_CodeReport">
+          <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="1" />
+          <End Type="alphaReportModel.ToolReport" Role="ToolReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolReport">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WeatherReport_CodeReport">
+          <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="0..1" />
+          <End Type="alphaReportModel.WeatherReport" Role="WeatherReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WeatherReport">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkersReport_CodeReport">
+          <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="1" />
+          <End Type="alphaReportModel.WorkerReport" Role="WorkerReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkerReport">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObstacleReport_ObstacleCategory">
+          <End Type="alphaReportModel.ObstacleCategory" Role="ObstacleCategory" Multiplicity="1" />
+          <End Type="alphaReportModel.ObstacleReport" Role="ObstacleReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ObstacleCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ObstacleReport">
+              <PropertyRef Name="ObstacleCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgressReport_Project">
+          <End Type="alphaReportModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="alphaReportModel.ProgressReport" Role="ProgressReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProgressReport">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestForInformation_Users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.RequestForInformation" Role="RequestForInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RequestForInformation">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestForInformationAnswer_RequestForInformation">
+          <End Type="alphaReportModel.RequestForInformation" Role="RequestForInformation" Multiplicity="1" />
+          <End Type="alphaReportModel.RequestForInformationAnswer" Role="RequestForInformationAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestForInformation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RequestForInformationAnswer">
+              <PropertyRef Name="RequestForInformationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestForInformationAnswer_Users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.RequestForInformationAnswer" Role="RequestForInformationAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RequestForInformationAnswer">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StatusReport_Users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="alphaReportModel.StatusReport" Role="StatusReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatusReport">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StatusReportImage_StatusReport">
+          <End Type="alphaReportModel.StatusReport" Role="StatusReport" Multiplicity="0..1" />
+          <End Type="alphaReportModel.StatusReportImage" Role="StatusReportImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StatusReportImage">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tool_Users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.Tool" Role="Tool" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tool">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToolReport_Tool">
+          <End Type="alphaReportModel.Tool" Role="Tool" Multiplicity="1" />
+          <End Type="alphaReportModel.ToolReport" Role="ToolReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tool">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ToolReport">
+              <PropertyRef Name="ToolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogin_Users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.UserLogin" Role="UserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPosition_Users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.UserPosition" Role="UserPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPosition">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPosition_Users1">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="alphaReportModel.UserPosition" Role="UserPosition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPosition">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Worker_Users">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.Worker" Role="Worker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Worker">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkersReport_Worker">
+          <End Type="alphaReportModel.Worker" Role="Worker" Multiplicity="1" />
+          <End Type="alphaReportModel.WorkerReport" Role="WorkerReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkerReport">
+              <PropertyRef Name="WorkerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="alphaReportModelStoreContainer" CdmEntityContainer="alphaReportEntities">
+          <EntitySetMapping Name="AnswerForm">
+            <EntityTypeMapping TypeName="alphaReportModel.AnswerForm">
+              <MappingFragment StoreEntitySet="AnswerForm">
+                <ScalarProperty Name="CodeAnswerFormId" ColumnName="CodeAnswerFormId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="alphaReportModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TaxIdentificationNumber" ColumnName="TaxIdentificationNumber" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientContact">
+            <EntityTypeMapping TypeName="alphaReportModel.ClientContact">
+              <MappingFragment StoreEntitySet="ClientContact">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodeAnswerForm">
+            <EntityTypeMapping TypeName="alphaReportModel.CodeAnswerForm">
+              <MappingFragment StoreEntitySet="CodeAnswerForm">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodeForm">
+            <EntityTypeMapping TypeName="alphaReportModel.CodeForm">
+              <MappingFragment StoreEntitySet="CodeForm">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodeProject">
+            <EntityTypeMapping TypeName="alphaReportModel.CodeProject">
+              <MappingFragment StoreEntitySet="CodeProject">
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ConfirmedBy" ColumnName="ConfirmedBy" />
+                <ScalarProperty Name="ConfirmedDate" ColumnName="ConfirmedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodeProjectDocument">
+            <EntityTypeMapping TypeName="alphaReportModel.CodeProjectDocument">
+              <MappingFragment StoreEntitySet="CodeProjectDocument">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CodeProjectId" ColumnName="CodeProjectId" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodeProjectUser">
+            <EntityTypeMapping TypeName="alphaReportModel.CodeProjectUser">
+              <MappingFragment StoreEntitySet="CodeProjectUser">
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="CodeProjectId" ColumnName="CodeProjectId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodeReport">
+            <EntityTypeMapping TypeName="alphaReportModel.CodeReport">
+              <MappingFragment StoreEntitySet="CodeReport">
+                <ScalarProperty Name="ConfirmedDate" ColumnName="ConfirmedDate" />
+                <ScalarProperty Name="ConfirmedBy" ColumnName="ConfirmedBy" />
+                <ScalarProperty Name="IsConfirm" ColumnName="IsConfirm" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="CodeProjectId" ColumnName="CodeProjectId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormQuestion">
+            <EntityTypeMapping TypeName="alphaReportModel.FormQuestion">
+              <MappingFragment StoreEntitySet="FormQuestion">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="CodeFormId" ColumnName="CodeFormId" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemReport">
+            <EntityTypeMapping TypeName="alphaReportModel.ItemReport">
+              <MappingFragment StoreEntitySet="ItemReport">
+                <ScalarProperty Name="CodeReportId" ColumnName="CodeReportId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObstacleCategory">
+            <EntityTypeMapping TypeName="alphaReportModel.ObstacleCategory">
+              <MappingFragment StoreEntitySet="ObstacleCategory">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObstacleReport">
+            <EntityTypeMapping TypeName="alphaReportModel.ObstacleReport">
+              <MappingFragment StoreEntitySet="ObstacleReport">
+                <ScalarProperty Name="ObstacleCategoryId" ColumnName="ObstacleCategoryId" />
+                <ScalarProperty Name="CodeReportId" ColumnName="CodeReportId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgressReport">
+            <EntityTypeMapping TypeName="alphaReportModel.ProgressReport">
+              <MappingFragment StoreEntitySet="ProgressReport">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CodeReportId" ColumnName="CodeReportId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project">
+            <EntityTypeMapping TypeName="alphaReportModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Timeline" ColumnName="Timeline" />
+                <ScalarProperty Name="EstimatedDuration" ColumnName="EstimatedDuration" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="CodeProjectId" ColumnName="CodeProjectId" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Done" ColumnName="Done" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="BudgetPrice" ColumnName="BudgetPrice" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestForInformation">
+            <EntityTypeMapping TypeName="alphaReportModel.RequestForInformation">
+              <MappingFragment StoreEntitySet="RequestForInformation">
+                <ScalarProperty Name="Header" ColumnName="Header" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CodeProjectId" ColumnName="CodeProjectId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestForInformationAnswer">
+            <EntityTypeMapping TypeName="alphaReportModel.RequestForInformationAnswer">
+              <MappingFragment StoreEntitySet="RequestForInformationAnswer">
+                <ScalarProperty Name="RequestForInformationId" ColumnName="RequestForInformationId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusReport">
+            <EntityTypeMapping TypeName="alphaReportModel.StatusReport">
+              <MappingFragment StoreEntitySet="StatusReport">
+                <ScalarProperty Name="CodeProjectId" ColumnName="CodeProjectId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusReportImage">
+            <EntityTypeMapping TypeName="alphaReportModel.StatusReportImage">
+              <MappingFragment StoreEntitySet="StatusReportImage">
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tool">
+            <EntityTypeMapping TypeName="alphaReportModel.Tool">
+              <MappingFragment StoreEntitySet="Tool">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToolReport">
+            <EntityTypeMapping TypeName="alphaReportModel.ToolReport">
+              <MappingFragment StoreEntitySet="ToolReport">
+                <ScalarProperty Name="CodeReportId" ColumnName="CodeReportId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ToolId" ColumnName="ToolId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="alphaReportModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogin">
+            <EntityTypeMapping TypeName="alphaReportModel.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPosition">
+            <EntityTypeMapping TypeName="alphaReportModel.UserPosition">
+              <MappingFragment StoreEntitySet="UserPosition">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WeatherReport">
+            <EntityTypeMapping TypeName="alphaReportModel.WeatherReport">
+              <MappingFragment StoreEntitySet="WeatherReport">
+                <ScalarProperty Name="CodeReportId" ColumnName="CodeReportId" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="WeatherId" ColumnName="WeatherId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Worker">
+            <EntityTypeMapping TypeName="alphaReportModel.Worker">
+              <MappingFragment StoreEntitySet="Worker">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkerReport">
+            <EntityTypeMapping TypeName="alphaReportModel.WorkerReport">
+              <MappingFragment StoreEntitySet="WorkerReport">
+                <ScalarProperty Name="CodeReportId" ColumnName="CodeReportId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="WorkerId" ColumnName="WorkerId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
