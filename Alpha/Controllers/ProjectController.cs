@@ -72,6 +72,20 @@ namespace Alpha.Controllers
 
         }
         
+        [HttpGet]
+        public List<CodeProjectPresentationModel> Get(string email)
+        {
+            alphaReportEntities dbContext = new alphaReportEntities();
+            List<CodeProjectPresentationModel> response = new List<CodeProjectPresentationModel>();
+            List<CodeProject> projects = new List<CodeProject>();
+            projects = dbContext.CodeProject.Where(x => x.User.Email == email).ToList();
+            projects.ForEach(project =>
+            {
+                response.Add(new CodeProjectPresentationModel(project));
+            });
+
+            return response;
+        }
 
         [Route("api/Project/InsertProject")]
         [HttpPost]
