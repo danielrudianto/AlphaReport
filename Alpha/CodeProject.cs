@@ -22,7 +22,6 @@ namespace Alpha
             this.CodeReport = new HashSet<CodeReport>();
             this.Project = new HashSet<Project>();
             this.RequestForInformation = new HashSet<RequestForInformation>();
-            this.StatusReport = new HashSet<StatusReport>();
         }
     
         public int Id { get; set; }
@@ -49,7 +48,5 @@ namespace Alpha
         public virtual ICollection<Project> Project { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequestForInformation> RequestForInformation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StatusReport> StatusReport { get; set; }
     }
 }

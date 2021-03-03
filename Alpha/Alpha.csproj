@@ -51,11 +51,38 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FirebaseAdmin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=97c8d00c348326ed, processorArchitecture=MSIL">
+      <HintPath>..\packages\FirebaseAdmin.2.0.0\lib\net461\FirebaseAdmin.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Api.Gax, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Api.Gax.3.2.0\lib\net461\Google.Api.Gax.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Api.Gax.Rest, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3ec5ea7f18953e47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Api.Gax.Rest.3.2.0\lib\net461\Google.Api.Gax.Rest.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.49.0\lib\net45\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.49.0\lib\net45\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth.PlatformServices, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.49.0\lib\net45\Google.Apis.Auth.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.49.0\lib\net45\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.PlatformServices, Version=1.49.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.49.0\lib\net45\Google.Apis.PlatformServices.dll</HintPath>
+    </Reference>
     <Reference Include="HttpMultipartParser, Version=4.4.0.0, Culture=neutral, PublicKeyToken=6d293681fa6c7a03, processorArchitecture=MSIL">
       <HintPath>..\packages\HttpMultipartParser.4.4.0\lib\net472\HttpMultipartParser.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Http.Features, Version=5.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.5.0.1\lib\net461\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -64,9 +91,15 @@
     <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.3.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.3.6\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.7.1\lib\net461\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -113,9 +146,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
@@ -187,9 +217,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlphaDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="AnswerForm.cs">
-      <DependentUpon>AlphaDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -228,12 +255,6 @@
     <Compile Include="ClientContact.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="CodeAnswerForm.cs">
-      <DependentUpon>AlphaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeForm.cs">
-      <DependentUpon>AlphaDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="CodeProject.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
@@ -246,31 +267,75 @@
     <Compile Include="CodeReport.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="CodeReportApproval.cs">
+      <DependentUpon>AlphaDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\ClientContactController.cs" />
+    <Compile Include="Controllers\ReportApprovalController.cs" />
+    <Compile Include="Controllers\DailyReportController.cs" />
+    <Compile Include="Controllers\StatusReportController.cs" />
+    <Compile Include="Controllers\ToolReportController.cs" />
+    <Compile Include="Controllers\MaterialReportController.cs" />
     <Compile Include="Controllers\ProjectDocumentController.cs" />
+    <Compile Include="Controllers\RequestForInformationDocumentController.cs" />
+    <Compile Include="Controllers\RequestForInformationController.cs" />
     <Compile Include="Controllers\UserLoginController.cs" />
     <Compile Include="Controllers\UserPositionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
-    <Compile Include="FormQuestion.cs">
+    <Compile Include="Controllers\WeatherReportController.cs" />
+    <Compile Include="Controllers\WorkerReportController.cs" />
+    <Compile Include="DailyTask.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ItemReport.cs">
+    <Compile Include="Material.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CodeReportApprovalPresentationModel.cs" />
+    <Compile Include="Models\CodeReportPresentationModel.cs" />
+    <Compile Include="Models\ConnectionModel.cs" />
+    <Compile Include="Controllers\ReportFeedController.cs" />
+    <Compile Include="Models\DailyReportPresentationModel.cs" />
+    <Compile Include="Models\DailyReportFormModel.cs" />
+    <Compile Include="Models\RequestForInformationDocumentPresentationModel.cs" />
+    <Compile Include="Models\StatusReportImageModel.cs" />
+    <Compile Include="Models\StatusReportPresentationModel.cs" />
+    <Compile Include="Models\ToolPresentationModel.cs" />
+    <Compile Include="Models\ReportApprovalFormModel.cs" />
+    <Compile Include="Models\StatusReportFormModel.cs" />
+    <Compile Include="Models\ToolReportPresentationModel.cs" />
+    <Compile Include="Models\ToolFormModel.cs" />
+    <Compile Include="Models\ToolReportFormModel.cs" />
+    <Compile Include="Models\WeatherPresentationModel.cs" />
+    <Compile Include="Models\WeatherFormModel.cs" />
+    <Compile Include="Models\WeatherReportPresentationModel.cs" />
+    <Compile Include="Models\WorkerPresentationModel.cs" />
+    <Compile Include="Models\WorkerFormModel.cs" />
+    <Compile Include="Models\WeatherReportFormModel.cs" />
+    <Compile Include="Models\WorkerReportPresentationModel.cs" />
+    <Compile Include="Models\WorkerReportFormModel.cs" />
+    <Compile Include="Models\RequestForInformationAnswerPresentationModel.cs" />
+    <Compile Include="Models\RequestForInformationAnswerFormModel.cs" />
+    <Compile Include="Models\CodeReportFormModel.cs" />
     <Compile Include="Models\CodeProjectUserFormModel.cs" />
     <Compile Include="Models\CodeProjectUserPresentationModel.cs" />
     <Compile Include="Models\CodeProjectDocumentModel.cs" />
+    <Compile Include="Models\MaterialPresentationModel.cs" />
+    <Compile Include="Models\MaterialFormModel.cs" />
+    <Compile Include="Models\MaterialReportPresentationModel.cs" />
     <Compile Include="Models\ProjectFormModel.cs" />
     <Compile Include="Models\CodeProjectFormModel.cs" />
+    <Compile Include="Models\RequestForInformationPresentationModel.cs" />
+    <Compile Include="Models\RequestForInformationFormModel.cs" />
     <Compile Include="Models\UserPositionPresentationModel.cs" />
     <Compile Include="Models\UserPositionFormModel.cs" />
     <Compile Include="Models\UserLoginFormModel.cs" />
+    <Compile Include="Models\MaterialReportFormModel.cs" />
     <Compile Include="Models\UserPresentationModel.cs" />
     <Compile Include="Models\UserFormModel.cs" />
     <Compile Include="Models\CodeProjectPresentationModel.cs" />
@@ -278,15 +343,7 @@
     <Compile Include="Models\ClientContactFormModel.cs" />
     <Compile Include="Models\ClientPresentationModel.cs" />
     <Compile Include="Models\ClientFormModel.cs" />
-    <Compile Include="ObstacleCategory.cs">
-      <DependentUpon>AlphaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ObstacleReport.cs">
-      <DependentUpon>AlphaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProgressReport.cs">
-      <DependentUpon>AlphaDB.tt</DependentUpon>
-    </Compile>
+    <Compile Include="NotificationHub.cs" />
     <Compile Include="Project.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
@@ -297,6 +354,10 @@
     <Compile Include="RequestForInformationAnswer.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="RequestForInformationDocument.cs">
+      <DependentUpon>AlphaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
     <Compile Include="StatusReport.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
@@ -304,9 +365,6 @@
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Tool.cs">
-      <DependentUpon>AlphaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ToolReport.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
@@ -318,13 +376,13 @@
     <Compile Include="UserPosition.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="WeatherReport.cs">
+    <Compile Include="UserToken.cs">
+      <DependentUpon>AlphaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Weather.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Worker.cs">
-      <DependentUpon>AlphaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WorkerReport.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -347,6 +405,11 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="main.b5de15b4a722fefbcdcf.js" />
+    <Content Include="main.b85474ee767cb5309e43.js" />
+    <Content Include="polyfills.2e89f9530eab053a7df4.js" />
+    <Content Include="runtime.0e49e2b53282f40c8925.js" />
+    <Content Include="scripts.98aa555254c3097e85cb.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -381,6 +444,13 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="styles.37d9796d366888af8c80.css" />
+    <Content Include="3rdpartylicenses.txt" />
+    <Content Include="assets\Construction Team.svg" />
+    <Content Include="assets\Header.svg" />
+    <Content Include="assets\Logo.svg" />
+    <Content Include="Header.6298aaedc17db359f41f.svg" />
+    <Content Include="Views\Home\index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -392,13 +462,23 @@
     <Content Include="Content\Site.css" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="assets\Font\HKGrotesk-Regular.ttf" />
+    <Content Include="assets\Font\HKGrotesk.otf" />
+    <Content Include="assets\ProjectFormat.csv" />
+    <Content Include="Views\Home\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DailyReport\" />
     <Folder Include="ProjectDocument\" />
+    <Folder Include="RequestForInformationDocument\" />
+    <Folder Include="StatusReport\" />
+    <Folder Include="Views\Hub\" />
+    <Folder Include="Views\ReportFeed\" />
+    <Folder Include="Views\RequestForInformation\" />
+    <Folder Include="Views\WorkerReport\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -425,6 +505,54 @@
     <Content Include="Content\bootstrap-theme.css.map" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FirebaseAdmin" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNet.Cors">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.SignalR">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Cors">
+      <Version>5.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Owin">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens">
+      <Version>5.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin">
+      <Version>4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Cors">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Security">
+      <Version>4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Security.Jwt">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Web.Infrastructure">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Owin">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt">
+      <Version>5.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
@@ -445,7 +573,7 @@
     </ItemGroup>
     <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
     <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
-</Target>
+  </Target>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">

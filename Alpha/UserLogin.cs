@@ -16,7 +16,7 @@ namespace Alpha
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public System.DateTime Time { get; set; }
+        public System.DateTime DateTime { get; set; }
     
         public virtual User User { get; set; }
     }

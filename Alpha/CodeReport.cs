@@ -17,12 +17,13 @@ namespace Alpha
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CodeReport()
         {
-            this.ItemReport = new HashSet<ItemReport>();
-            this.ObstacleReport = new HashSet<ObstacleReport>();
-            this.ProgressReport = new HashSet<ProgressReport>();
-            this.ToolReport = new HashSet<ToolReport>();
-            this.WeatherReport = new HashSet<WeatherReport>();
-            this.WorkerReport = new HashSet<WorkerReport>();
+            this.CodeReportApproval = new HashSet<CodeReportApproval>();
+            this.DailyTask = new HashSet<DailyTask>();
+            this.Material = new HashSet<Material>();
+            this.StatusReport = new HashSet<StatusReport>();
+            this.Tool = new HashSet<Tool>();
+            this.Weather = new HashSet<Weather>();
+            this.Worker = new HashSet<Worker>();
         }
     
         public int Id { get; set; }
@@ -31,24 +32,26 @@ namespace Alpha
         public System.DateTime Date { get; set; }
         public int CodeProjectId { get; set; }
         public int Type { get; set; }
-        public byte IsConfirm { get; set; }
-        public Nullable<int> ConfirmedBy { get; set; }
-        public Nullable<System.DateTime> ConfirmedDate { get; set; }
+        public byte IsDelete { get; set; }
+        public Nullable<int> DeletedBy { get; set; }
+        public Nullable<System.DateTime> DeletedDate { get; set; }
     
         public virtual CodeProject CodeProject { get; set; }
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ItemReport> ItemReport { get; set; }
+        public virtual ICollection<CodeReportApproval> CodeReportApproval { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ObstacleReport> ObstacleReport { get; set; }
+        public virtual ICollection<DailyTask> DailyTask { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProgressReport> ProgressReport { get; set; }
+        public virtual ICollection<Material> Material { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ToolReport> ToolReport { get; set; }
+        public virtual ICollection<StatusReport> StatusReport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WeatherReport> WeatherReport { get; set; }
+        public virtual ICollection<Tool> Tool { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkerReport> WorkerReport { get; set; }
+        public virtual ICollection<Weather> Weather { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Worker> Worker { get; set; }
     }
 }

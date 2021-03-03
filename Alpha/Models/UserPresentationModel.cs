@@ -35,7 +35,7 @@ namespace Alpha.Models
             Email = users.Email;
             IsActive = users.IsActive;
             ImageUrl = users.ImageUrl;
-            HasRelation = users.RequestForInformation.Any() || users.RequestForInformationAnswer.Any() || users.StatusReport.Any() || users.Tool.Any() || users.Client.Any() || users.ClientContact.Any() || users.CodeAnswerForm.Any() || users.CodeForm.Any() || users.CodeProject.Any() || users.CodeProject1.Any() || users.CodeReport.Any() || users.CodeReport1.Any() || users.StatusReport.Any() || users.Tool.Any() || users.Worker.Any();
+            HasRelation = users.RequestForInformation.Any() || users.RequestForInformationAnswer.Any() || users.Client.Any() || users.ClientContact.Any() || users.CodeProject.Any() || users.CodeProject1.Any() || users.CodeReport.Any() || users.CodeReport1.Any();
             LastPosition = new UserPositionPresentationModel(users.UserPosition.Where(x => x.EffectiveDate <= DateTime.Now).OrderByDescending(x => x.EffectiveDate).First());
             Positions = userPresentationPositions;
         }

@@ -21,6 +21,9 @@ namespace Alpha.Controllers
     [RoutePrefix("")]
     public class ProjectDocumentController : ApiController
     {
+        [Authorize]
+        [AllowAnonymous]
+        [HttpPost]
         public void Post()
         {
             alphaReportEntities dbContext = new alphaReportEntities();
@@ -37,12 +40,13 @@ namespace Alpha.Controllers
                 {
                     var ext = File.FileName.Substring(File.FileName.LastIndexOf('.'));
                     var extension = ext.ToLower();
-                    string filePath = HttpContext.Current.Server.MapPath("~/ProjectDocument/" + Guid.NewGuid() + "." + extension);
+                    var guid = Guid.NewGuid();
+                    string filePath = HttpContext.Current.Server.MapPath("~/ProjectDocument/" + guid + extension);
                     File.SaveAs(filePath);
 
                     var document = new CodeProjectDocument();
                     document.Name = File.FileName;
-                    document.Url = filePath;
+                    document.Url = "ProjectDocument/" + guid + extension;
                     document.CreatedBy = CreatedBy;
                     document.CreatedDate = DateTime.Now;
                     document.CodeProjectId = CodeProjectId;

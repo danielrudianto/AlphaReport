@@ -12,9 +12,12 @@ using System.Web.Http.Cors;
 namespace Alpha.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("")]
+    [System.Web.Http.RoutePrefix("")]
     public class ClientController : ApiController
     {
+        [Authorize]
+        [AllowAnonymous]
+        [HttpGet]
         public List<ClientPresentationModel> Get()
         {
             alphaReportEntities dbContext = new alphaReportEntities();
@@ -27,6 +30,9 @@ namespace Alpha.Controllers
             return response;
         }
 
+        [Authorize]
+        [AllowAnonymous]
+        [HttpPost]
         public ClientPresentationModel Post(ClientFormModel value)
         {
             alphaReportEntities dbContext = new alphaReportEntities();
@@ -43,6 +49,9 @@ namespace Alpha.Controllers
             }
         }
 
+        [Authorize]
+        [AllowAnonymous]
+        [HttpPut]
         public ClientPresentationModel Put(ClientFormModel value)
         {
             alphaReportEntities dbContext = new alphaReportEntities();
@@ -68,6 +77,9 @@ namespace Alpha.Controllers
             }
         }
 
+        [Authorize]
+        [AllowAnonymous]
+        [HttpDelete]
         public int Delete(int Id)
         {
             alphaReportEntities dbContext = new alphaReportEntities();

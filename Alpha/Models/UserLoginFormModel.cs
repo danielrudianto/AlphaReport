@@ -12,10 +12,9 @@ namespace Alpha.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public System.DateTime Time { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Token { get; set; }
 
         public UserLoginFormModel(UserLogin users)
         {
@@ -25,7 +24,7 @@ namespace Alpha.Models
         {
             UserLogin userLogin = new UserLogin();
             userLogin.Id = dbObject.Id;
-            userLogin.Time = DateTime.Now;
+            userLogin.DateTime = DateTime.Now;
             userLogin.UserId = dbObject.UserId;
 
             return userLogin;

@@ -16,16 +16,15 @@ using System.Collections.Specialized;
 namespace Alpha.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("Api/Project")]
-    [AllowAnonymous]
+    [RoutePrefix("")]
     public class ProjectController : ApiController
     {
-        [HttpGet]
-        [ActionName("GetIncompleted")]
-        [Route("api/Project/GetIncompleted")]
+        [Authorize]
+        [AllowAnonymous]
+        [Route("Api/Project/GetIncompleted/{type}")]
+        [HttpGet]        
         public List<CodeProjectPresentationModel> GetIncompleted(int type = 1)
         {
-            //1 is for incompleted project.//
             alphaReportEntities dbContext = new alphaReportEntities();
             List<CodeProjectPresentationModel> response = new List<CodeProjectPresentationModel>();
             List<CodeProject> projects = new List<CodeProject>();
@@ -40,9 +39,28 @@ namespace Alpha.Controllers
             return response;
         }
 
+        [Route("api/Project/GetByUser/{userProjectId}")]
         [HttpGet]
-        [ActionName("ConfirmProject")]
-        [Route("api/Project/ConfirmProject")]
+        [Authorize]
+        [AllowAnonymous]
+        public List<CodeProjectPresentationModel> GetByUser(int UserProjectId)
+        {
+            alphaReportEntities dbContext = new alphaReportEntities();
+            List<CodeProjectPresentationModel> response = new List<CodeProjectPresentationModel>();
+            List<CodeProject> projects = new List<CodeProject>();
+            projects = dbContext.CodeProject.Where(x => x.IsCompleted == 0 && x.ConfirmedBy != null).ToList();
+            projects.ForEach((project) => {
+            if (project.CodeProjectUser.Where(z => z.UserId == dbContext.User.Where(x => x.Id == UserProjectId).Select(y => y.Id).First()).Count() > 0)
+                {
+                    response.Add(new CodeProjectPresentationModel(project));
+                }
+            });
+            return response;
+        }
+
+        [Authorize]
+        [Route("Api/Project/ConfirmProject")]
+        [HttpPost]
         public int ConfirmProject(int Id, int UserId)
         {
             alphaReportEntities dbContext = new alphaReportEntities();
@@ -60,8 +78,11 @@ namespace Alpha.Controllers
             }
         }
 
+        [Authorize]
+        [AllowAnonymous]
+        [Route("Api/Project/GetById/{id}")]
         [HttpGet]
-        public CodeProjectPresentationModel Get(int id)
+        public CodeProjectPresentationModel GetById(int id)
         {
             alphaReportEntities dbContext = new alphaReportEntities();
             CodeProjectPresentationModel response = new CodeProjectPresentationModel();
@@ -69,11 +90,13 @@ namespace Alpha.Controllers
             project = dbContext.CodeProject.Where(x => x.Id == id).First();
             response = new CodeProjectPresentationModel(project);
             return response;
-
         }
-        
+
+        [Authorize]
+        [AllowAnonymous]
+        [Route("api/Project/GetByEmail")]
         [HttpGet]
-        public List<CodeProjectPresentationModel> Get(string email)
+        public List<CodeProjectPresentationModel> GetByEmail(string email)
         {
             alphaReportEntities dbContext = new alphaReportEntities();
             List<CodeProjectPresentationModel> response = new List<CodeProjectPresentationModel>();
@@ -87,6 +110,8 @@ namespace Alpha.Controllers
             return response;
         }
 
+        [Authorize]
+        [AllowAnonymous]
         [Route("api/Project/InsertProject")]
         [HttpPost]
         public int InsertProject(CodeProjectFormModel value)
@@ -132,8 +157,49 @@ namespace Alpha.Controllers
             {
                 return 0;
             }
+        }
 
-            
+        [Authorize]
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("Api/Project/getTodayReports/{projectId}")]
+        public List<object> getTodayReports(int projectId)
+        {
+            alphaReportEntities dbContext = new alphaReportEntities();
+            List<CodeReport> reports = new List<CodeReport>();
+
+            List<object> response = new List<object>();
+            reports = dbContext.CodeReport.Where(x => x.CodeProjectId == projectId && x.Date.Month == DateTime.Today.Month && x.Date.Year == DateTime.Today.Year && x.Date.Day == DateTime.Now.Day && x.IsDelete == 0).OrderByDescending(y => y.CreatedDate).ToList();
+            reports.ForEach(report =>
+            {
+                object O = new object();
+                switch(report.Type)
+                {
+                    case 1:
+                        O = WorkerReportPresentationModel.ParseReport(report);
+                        break;
+                    case 2:
+                        O = ToolReportPresentationModel.ParseReport(report);
+                        break;
+                    case 3:
+                        O = MaterialReportPresentationModel.ParseReport(report);
+                        break;
+                    case 4:
+                        O = WeatherReportPresentationModel.ParseReport(report);
+                        break;
+                    case 5:
+                        O = new RequestForInformationPresentationModel(dbContext.RequestForInformation.Where(x => x.Id == report.Id).First());
+                        break;
+                    case 7:
+                        O = StatusReportPresentationModel.ParseReport(report);
+                        break;
+
+                }
+                
+                response.Add(O);
+            });
+
+            return response;
         }
     }
 }

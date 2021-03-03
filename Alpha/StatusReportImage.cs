@@ -15,8 +15,9 @@ namespace Alpha
     public partial class StatusReportImage
     {
         public int Id { get; set; }
-        public Nullable<int> StatusId { get; set; }
+        public int CodeReportId { get; set; }
         public string ImageUrl { get; set; }
+        public string Name { get; set; }
     
         public virtual StatusReport StatusReport { get; set; }
     }

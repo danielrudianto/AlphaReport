@@ -20,6 +20,7 @@ namespace Alpha.Models
         public List<CodeProjectDocumentModel> Documents { get; set; }
         public List<ProjectFormModel> Tasks { get; set; }
         public List<CodeProjectUserPresentationModel> Users { get; set; }
+        public double Progress { get; set; }
 
         public CodeProjectPresentationModel()
         {
@@ -27,6 +28,8 @@ namespace Alpha.Models
 
         public CodeProjectPresentationModel(CodeProject dbObject)
         {
+            Double totalTask = 0;
+            Double completedTask = 0;
             var documents = dbObject.CodeProjectDocument.ToList();
             List<CodeProjectDocumentModel> codeProjectDocuments = new List<CodeProjectDocumentModel>();
             documents.ForEach(document =>
@@ -39,6 +42,11 @@ namespace Alpha.Models
             tasks.ForEach(task =>
             {
                 projects.Add(new ProjectFormModel(task));
+                if(task.Quantity.HasValue && task.Quantity > 0)
+                {
+                    totalTask += ((task.Quantity.HasValue) ? task.Quantity.Value : 0) * ((task.Price.HasValue) ? task.Price.Value : 0);
+                    completedTask += ((task.Done.HasValue) ? task.Done.Value : 0) * ((task.Price.HasValue) ? task.Price.Value : 0);
+                }
             });
 
             var users = dbObject.CodeProjectUser.ToList();
@@ -60,6 +68,14 @@ namespace Alpha.Models
             Documents = codeProjectDocuments;
             Tasks = projects;
             Users = userPresentations;
+            if(totalTask > 0)
+            {
+                Progress = completedTask / totalTask;
+            } else
+            {
+                Progress = 0;
+            }
+            
         }
     }
 }

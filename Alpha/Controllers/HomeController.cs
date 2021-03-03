@@ -11,8 +11,7 @@ namespace Alpha.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
-            return View();
+            return new FilePathResult("Views/Home/index.html", "text/html");
         }
     }
 }

@@ -15,6 +15,9 @@ namespace Alpha.Controllers
     [RoutePrefix("")]
     public class ClientContactController : ApiController
     {
+        [Authorize]
+        [AllowAnonymous]
+        [HttpPost]
         public ClientContact Post(ClientContactFormModel value)
         {
             alphaReportEntities dbContext = new alphaReportEntities();
@@ -30,6 +33,9 @@ namespace Alpha.Controllers
             }
         }
 
+        [Authorize]
+        [AllowAnonymous]
+        [HttpPut]
         public int Put(ClientContactFormModel value)
         {
             alphaReportEntities dbContext = new alphaReportEntities();
@@ -49,6 +55,9 @@ namespace Alpha.Controllers
             
         }
 
+        [Authorize]
+        [AllowAnonymous]
+        [HttpDelete]
         public int Delete(int Id)
         {
             alphaReportEntities dbContext = new alphaReportEntities();

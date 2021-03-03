@@ -19,22 +19,19 @@ namespace Alpha
         {
             this.Client = new HashSet<Client>();
             this.ClientContact = new HashSet<ClientContact>();
-            this.CodeAnswerForm = new HashSet<CodeAnswerForm>();
-            this.CodeForm = new HashSet<CodeForm>();
             this.CodeProject = new HashSet<CodeProject>();
             this.CodeProject1 = new HashSet<CodeProject>();
             this.CodeProjectDocument = new HashSet<CodeProjectDocument>();
             this.CodeProjectUser = new HashSet<CodeProjectUser>();
             this.CodeReport = new HashSet<CodeReport>();
             this.CodeReport1 = new HashSet<CodeReport>();
+            this.CodeReportApproval = new HashSet<CodeReportApproval>();
             this.RequestForInformation = new HashSet<RequestForInformation>();
             this.RequestForInformationAnswer = new HashSet<RequestForInformationAnswer>();
-            this.StatusReport = new HashSet<StatusReport>();
-            this.Tool = new HashSet<Tool>();
             this.UserLogin = new HashSet<UserLogin>();
             this.UserPosition = new HashSet<UserPosition>();
             this.UserPosition1 = new HashSet<UserPosition>();
-            this.Worker = new HashSet<Worker>();
+            this.UserToken = new HashSet<UserToken>();
         }
     
         public int Id { get; set; }
@@ -44,15 +41,12 @@ namespace Alpha
         public byte IsActive { get; set; }
         public string Password { get; set; }
         public string ImageUrl { get; set; }
+        public string ThumbnailUrl { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Client> Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientContact> ClientContact { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CodeAnswerForm> CodeAnswerForm { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CodeForm> CodeForm { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CodeProject> CodeProject { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -66,13 +60,11 @@ namespace Alpha
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CodeReport> CodeReport1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CodeReportApproval> CodeReportApproval { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequestForInformation> RequestForInformation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequestForInformationAnswer> RequestForInformationAnswer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StatusReport> StatusReport { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tool> Tool { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserLogin> UserLogin { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -80,6 +72,6 @@ namespace Alpha
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPosition> UserPosition1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Worker> Worker { get; set; }
+        public virtual ICollection<UserToken> UserToken { get; set; }
     }
 }

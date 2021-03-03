@@ -25,32 +25,27 @@ namespace Alpha
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AnswerForm> AnswerForm { get; set; }
         public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<ClientContact> ClientContact { get; set; }
-        public virtual DbSet<CodeAnswerForm> CodeAnswerForm { get; set; }
-        public virtual DbSet<CodeForm> CodeForm { get; set; }
         public virtual DbSet<CodeProject> CodeProject { get; set; }
         public virtual DbSet<CodeProjectDocument> CodeProjectDocument { get; set; }
         public virtual DbSet<CodeProjectUser> CodeProjectUser { get; set; }
         public virtual DbSet<CodeReport> CodeReport { get; set; }
-        public virtual DbSet<FormQuestion> FormQuestion { get; set; }
-        public virtual DbSet<ItemReport> ItemReport { get; set; }
-        public virtual DbSet<ObstacleCategory> ObstacleCategory { get; set; }
-        public virtual DbSet<ObstacleReport> ObstacleReport { get; set; }
-        public virtual DbSet<ProgressReport> ProgressReport { get; set; }
+        public virtual DbSet<CodeReportApproval> CodeReportApproval { get; set; }
+        public virtual DbSet<DailyTask> DailyTask { get; set; }
+        public virtual DbSet<Material> Material { get; set; }
         public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<RequestForInformation> RequestForInformation { get; set; }
         public virtual DbSet<RequestForInformationAnswer> RequestForInformationAnswer { get; set; }
+        public virtual DbSet<RequestForInformationDocument> RequestForInformationDocument { get; set; }
         public virtual DbSet<StatusReport> StatusReport { get; set; }
         public virtual DbSet<StatusReportImage> StatusReportImage { get; set; }
         public virtual DbSet<Tool> Tool { get; set; }
-        public virtual DbSet<ToolReport> ToolReport { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserLogin> UserLogin { get; set; }
         public virtual DbSet<UserPosition> UserPosition { get; set; }
-        public virtual DbSet<WeatherReport> WeatherReport { get; set; }
+        public virtual DbSet<UserToken> UserToken { get; set; }
+        public virtual DbSet<Weather> Weather { get; set; }
         public virtual DbSet<Worker> Worker { get; set; }
-        public virtual DbSet<WorkerReport> WorkerReport { get; set; }
     }
 }

@@ -21,13 +21,10 @@ namespace Alpha
         }
     
         public int Id { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-        public Nullable<int> CodeProjectId { get; set; }
+        public string Status { get; set; }
+        public int CodeReportId { get; set; }
     
-        public virtual CodeProject CodeProject { get; set; }
-        public virtual User User { get; set; }
+        public virtual CodeReport CodeReport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StatusReportImage> StatusReportImage { get; set; }
     }

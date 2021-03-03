@@ -15,6 +15,9 @@ namespace Alpha.Controllers
     [RoutePrefix("")]
     public class UserPositionController : ApiController
     {
+        [AllowAnonymous]
+        [Authorize]
+        [HttpPost]
         public UserPresentationModel Post(UserPositionFormModel value)
         {
             alphaReportEntities dbContext = new alphaReportEntities();
@@ -31,6 +34,9 @@ namespace Alpha.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [Authorize]
+        [HttpDelete]
         public UserPresentationModel Delete(int Id)
         {
             alphaReportEntities dbContext = new alphaReportEntities();

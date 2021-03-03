@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Daniel Rudianto\Source\Repos\AlphaReport\Alpha\AlphaDB.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Daniel Rudianto\source\repos\AlphaReport\Alpha\AlphaDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

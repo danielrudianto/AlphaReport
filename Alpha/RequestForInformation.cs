@@ -18,6 +18,7 @@ namespace Alpha
         public RequestForInformation()
         {
             this.RequestForInformationAnswer = new HashSet<RequestForInformationAnswer>();
+            this.RequestForInformationDocument = new HashSet<RequestForInformationDocument>();
         }
     
         public int Id { get; set; }
@@ -26,10 +27,13 @@ namespace Alpha
         public System.DateTime CreatedDate { get; set; }
         public string Description { get; set; }
         public string Header { get; set; }
+        public string AddressedFor { get; set; }
     
         public virtual CodeProject CodeProject { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequestForInformationAnswer> RequestForInformationAnswer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequestForInformationDocument> RequestForInformationDocument { get; set; }
     }
 }

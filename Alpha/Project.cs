@@ -14,12 +14,6 @@ namespace Alpha
     
     public partial class Project
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Project()
-        {
-            this.ProgressReport = new HashSet<ProgressReport>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
         public Nullable<double> BudgetPrice { get; set; }
@@ -35,7 +29,5 @@ namespace Alpha
         public string Unit { get; set; }
     
         public virtual CodeProject CodeProject { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProgressReport> ProgressReport { get; set; }
     }
 }
