@@ -18,6 +18,7 @@ namespace Alpha
         public CodeReport()
         {
             this.CodeReportApproval = new HashSet<CodeReportApproval>();
+            this.DailyReportImage = new HashSet<DailyReportImage>();
             this.DailyTask = new HashSet<DailyTask>();
             this.Material = new HashSet<Material>();
             this.StatusReport = new HashSet<StatusReport>();
@@ -41,6 +42,8 @@ namespace Alpha
         public virtual User User1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CodeReportApproval> CodeReportApproval { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DailyReportImage> DailyReportImage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DailyTask> DailyTask { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

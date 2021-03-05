@@ -34,6 +34,8 @@ namespace Alpha
         public string Address { get; set; }
         public string DocumentName { get; set; }
         public byte IsCompleted { get; set; }
+        public Nullable<System.DateTime> CompletedDate { get; set; }
+        public Nullable<int> CompletedBy { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual User User { get; set; }

@@ -287,6 +287,9 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\WeatherReportController.cs" />
     <Compile Include="Controllers\WorkerReportController.cs" />
+    <Compile Include="DailyReportImage.cs">
+      <DependentUpon>AlphaDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DailyTask.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
@@ -303,6 +306,7 @@
     <Compile Include="Models\DailyReportPresentationModel.cs" />
     <Compile Include="Models\DailyReportFormModel.cs" />
     <Compile Include="Models\RequestForInformationDocumentPresentationModel.cs" />
+    <Compile Include="Models\DailyReportImageModel.cs" />
     <Compile Include="Models\StatusReportImageModel.cs" />
     <Compile Include="Models\StatusReportPresentationModel.cs" />
     <Compile Include="Models\ToolPresentationModel.cs" />
@@ -374,9 +378,6 @@
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="UserPosition.cs">
-      <DependentUpon>AlphaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserToken.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Weather.cs">
@@ -472,6 +473,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DailyReport\" />
+    <Folder Include="ProfileImages\" />
     <Folder Include="ProjectDocument\" />
     <Folder Include="RequestForInformationDocument\" />
     <Folder Include="StatusReport\" />

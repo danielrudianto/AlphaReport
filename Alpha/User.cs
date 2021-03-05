@@ -31,7 +31,6 @@ namespace Alpha
             this.UserLogin = new HashSet<UserLogin>();
             this.UserPosition = new HashSet<UserPosition>();
             this.UserPosition1 = new HashSet<UserPosition>();
-            this.UserToken = new HashSet<UserToken>();
         }
     
         public int Id { get; set; }
@@ -71,7 +70,5 @@ namespace Alpha
         public virtual ICollection<UserPosition> UserPosition { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPosition> UserPosition1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserToken> UserToken { get; set; }
     }
 }

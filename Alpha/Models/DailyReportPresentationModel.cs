@@ -15,6 +15,7 @@ namespace Alpha.Models
         public DateTime CreatedDate { get; set; }
         public int CodeProjectId { get; set; }
         public List<DailyTaskFormModel> Tasks { get; set; }
+        public List<DailyReportImageModel> Images { get; set; }
 
         public static DailyReportPresentationModel ParseReport(CodeReport report)
         {
@@ -42,6 +43,14 @@ namespace Alpha.Models
 
                 Tasks.Add(parentTask);
             });
+
+            List<DailyReportImageModel> images = new List<DailyReportImageModel>();
+            List<DailyReportImage> dbImages = report.DailyReportImage.ToList();
+            dbImages.ForEach(image =>
+            {
+                images.Add(new DailyReportImageModel(image));
+            });
+
             DailyReportPresentationModel response = new DailyReportPresentationModel
             {
                 Id = report.Id,
@@ -49,7 +58,8 @@ namespace Alpha.Models
                 CreatedBy = (report.User == null) ? "" : (report.User.FirstName + " " + report.User.LastName),
                 CreatedDate = report.CreatedDate,
                 CodeProjectId = report.CodeProjectId,
-                Tasks = Tasks
+                Tasks = Tasks,
+                Images = images
             };
 
             return response;

@@ -20,6 +20,9 @@ namespace Alpha.Models
         public List<CodeProjectDocumentModel> Documents { get; set; }
         public List<ProjectFormModel> Tasks { get; set; }
         public List<CodeProjectUserPresentationModel> Users { get; set; }
+        public byte IsCompleted { get; set; }
+        public string CompletedBy { get; set; }
+        public Nullable<DateTime> CompletedDate { get; set; }
         public double Progress { get; set; }
 
         public CodeProjectPresentationModel()
@@ -67,6 +70,9 @@ namespace Alpha.Models
             DocumentName = dbObject.DocumentName;
             Documents = codeProjectDocuments;
             Tasks = projects;
+            IsCompleted = dbObject.IsCompleted;
+            CompletedBy = (dbObject.CompletedBy != null) ? (dbObject.User1.FirstName + " " + dbObject.User1.LastName) : null;
+            CompletedDate = dbObject.CompletedDate;
             Users = userPresentations;
             if(totalTask > 0)
             {

@@ -106,25 +106,25 @@ namespace Alpha.Controllers
                     string filePath = HttpContext.Current.Server.MapPath("~/DailyReport/" + guid + extension);
                     File.SaveAs(filePath);
 
-                    var document = new StatusReportImage();
+                    var document = new DailyReportImage();
                     document.Name = File.FileName;
                     document.ImageUrl = "DailyReport/" + guid + extension;
                     document.CodeReportId = CodeStatusReportId;
-
-                    dbContext.StatusReportImage.Add(document);
+                    
+                    dbContext.DailyReportImage.Add(document);
                 }
             }
 
             dbContext.SaveChanges();
-            StatusReport report = new StatusReport();
-            report = dbContext.StatusReport.Where(x => x.Id == CodeStatusReportId).First();
-            var reportId = report.CodeReportId;
+            CodeReport report = new CodeReport();
+            report = dbContext.CodeReport.Where(x => x.Id == CodeStatusReportId).First();
+            var reportId = report.Id;
 
             CodeReport codeReport = new CodeReport();
             codeReport = dbContext.CodeReport.Where(x => x.Id == reportId).First();
             codeReport.User = dbContext.User.Where(x => x.Id == codeReport.CreatedBy).First();
 
-            NotificationHub.NewFeed(StatusReportPresentationModel.ParseReport(codeReport));
+            NotificationHub.NewFeed(DailyReportPresentationModel.ParseReport(codeReport));
         }
     }
 }

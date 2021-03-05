@@ -47,45 +47,16 @@ namespace Alpha.Controllers
                 permClaims.Add(new Claim("ImageUrl", (user.ImageUrl == null) ? "" : user.ImageUrl));
                 permClaims.Add(new Claim("Id", user.Id.ToString()));
 
-                UserToken userToken = new UserToken();
-                userToken.UserId = user.Id;
-                userToken.Token = value.Token;
-                dbContext.UserToken.Where(x => x.UserId != user.Id).ToList().ForEach(fbToken =>
-                {
-                    dbContext.UserToken.Remove(fbToken);
-                });
                 dbContext.SaveChanges();
-                
-                if(dbContext.UserToken.Where(x => x.UserId == user.Id && x.Token == value.Token).Count()  == 0)
-                {
-                    if(value.Token != null)
-                    {
-                        dbContext.UserToken.Add(userToken);
-                        dbContext.SaveChanges();
-                    }
-                }
 
-                if(value.Token != null)
-                {
-                    var token = new JwtSecurityToken(
+                var token = new JwtSecurityToken(
                     issuer,
                     null,
                     permClaims,
-                    expires: DateTime.Now.AddDays(30),
+                    expires: DateTime.Now.AddDays(7),
                     signingCredentials: credentials);
-                    var jwt_token = new JwtSecurityTokenHandler().WriteToken(token);
-                    return jwt_token;
-                } else
-                {
-                    var token = new JwtSecurityToken(
-                    issuer,
-                    null,
-                    permClaims,
-                    expires: DateTime.Now.AddDays(1),
-                    signingCredentials: credentials);
-                    var jwt_token = new JwtSecurityTokenHandler().WriteToken(token);
-                    return jwt_token;
-                }
+                var jwt_token = new JwtSecurityTokenHandler().WriteToken(token);
+                return jwt_token;
             }
             else
             {

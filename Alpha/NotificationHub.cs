@@ -36,6 +36,11 @@ namespace Alpha
             hubContext.Clients.All.newRequestForInformationAnswer(value);
         }
 
+        public static void ProjectCompleted(int Id)
+        {
+            hubContext.Clients.All.ProjectCompleted(Id);
+        }
+
         public static void NewFeed(object feed)
         {
             hubContext.Clients.All.newFeed(feed);

@@ -59,13 +59,41 @@ namespace Alpha.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public int SetProjectDone(int Id, int UserId)
+        {
+            alphaReportEntities dbContext = new alphaReportEntities();
+            CodeProject codeProject = new CodeProject();
+            codeProject = dbContext.CodeProject.Where(x => x.Id == Id && x.IsCompleted != 0).FirstOrDefault();
+            if (codeProject != null)
+            {
+                codeProject.CompletedBy = UserId;
+                codeProject.CompletedDate = DateTime.Now;
+
+                var result = dbContext.SaveChanges();
+                if(result == 1)
+                {
+                    NotificationHub.ProjectCompleted(Id);
+                    return 1;
+                } else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        [Authorize]
         [Route("Api/Project/ConfirmProject")]
         [HttpPost]
         public int ConfirmProject(int Id, int UserId)
         {
             alphaReportEntities dbContext = new alphaReportEntities();
             CodeProject codeProject = new CodeProject();
-            codeProject = dbContext.CodeProject.Where(x => x.Id == Id).FirstOrDefault();
+            codeProject = dbContext.CodeProject.Where(x => x.Id == Id && x.ConfirmedBy == null && x.IsCompleted == 0).FirstOrDefault();
             if (codeProject != null)
             {
                 codeProject.ConfirmedBy = UserId;

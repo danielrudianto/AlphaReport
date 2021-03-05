@@ -32,6 +32,7 @@ namespace Alpha
         public virtual DbSet<CodeProjectUser> CodeProjectUser { get; set; }
         public virtual DbSet<CodeReport> CodeReport { get; set; }
         public virtual DbSet<CodeReportApproval> CodeReportApproval { get; set; }
+        public virtual DbSet<DailyReportImage> DailyReportImage { get; set; }
         public virtual DbSet<DailyTask> DailyTask { get; set; }
         public virtual DbSet<Material> Material { get; set; }
         public virtual DbSet<Project> Project { get; set; }
@@ -44,7 +45,6 @@ namespace Alpha
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserLogin> UserLogin { get; set; }
         public virtual DbSet<UserPosition> UserPosition { get; set; }
-        public virtual DbSet<UserToken> UserToken { get; set; }
         public virtual DbSet<Weather> Weather { get; set; }
         public virtual DbSet<Worker> Worker { get; set; }
     }

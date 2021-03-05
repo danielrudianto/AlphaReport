@@ -12,12 +12,13 @@ namespace Alpha
     using System;
     using System.Collections.Generic;
     
-    public partial class UserToken
+    public partial class DailyReportImage
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public string Token { get; set; }
+        public int CodeReportId { get; set; }
+        public string ImageUrl { get; set; }
+        public string Name { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual CodeReport CodeReport { get; set; }
     }
 }

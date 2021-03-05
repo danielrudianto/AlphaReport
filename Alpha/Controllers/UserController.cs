@@ -11,6 +11,7 @@ using System.Web.Http.Cors;
 using System.Security.Claims;
 using System.Text;
 using System.Security.Cryptography;
+using System.Web;
 
 namespace Alpha.Controllers
 {
@@ -54,39 +55,6 @@ namespace Alpha.Controllers
             } else
             {
                 return null;
-            }
-        }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public bool CheckAvailbility(int Id)
-        {
-            alphaReportEntities dbContext = new alphaReportEntities();
-            User user = new User();
-            return (dbContext.User.Where(x => x.Id == Id && x.IsActive == 1).ToList().Count > 0) ? true : false;
-        }
-
-        public int Get(string token, string email)
-        {
-            alphaReportEntities dbContext = new alphaReportEntities();
-            User user = new User();
-            user = dbContext.User.Where(x => x.Email == email && x.IsActive == 1).FirstOrDefault();
-            if(user == null)
-            {
-                return 0;
-            } else
-            {
-                var count = dbContext.UserToken.Where(x => x.UserId == user.Id && x.Token == token).Count();
-                if(count == 0)
-                {
-                    UserToken userToken = new UserToken();
-                    userToken.UserId = user.Id;
-                    userToken.Token = token;
-
-                    dbContext.UserToken.Add(userToken);
-                    dbContext.SaveChanges();
-                }
-                return 1;
             }
         }
 
@@ -140,6 +108,41 @@ namespace Alpha.Controllers
 
         [AllowAnonymous]
         [Authorize]
+        [HttpPost]
+        public string UpdateProfilePicture()
+        {
+            string response = null;
+            alphaReportEntities dbContext = new alphaReportEntities();
+            var httpRequest = HttpContext.Current.Request;
+            var Files = httpRequest.Files;
+            Array array = Files.AllKeys;
+            var UserId = Int32.Parse(httpRequest.Params["Id"]);
+            if (Files.Count > 0)
+            {
+                foreach (string keys in array)
+                {
+                    var File = Files.Get(keys);
+                    if (File != null && File.ContentLength > 0)
+                    {
+                        var ext = File.FileName.Substring(File.FileName.LastIndexOf('.'));
+                        var extension = ext.ToLower();
+                        var guid = Guid.NewGuid();
+                        string filePath = HttpContext.Current.Server.MapPath("~/ProfileImages/" + guid + extension);
+                        File.SaveAs(filePath);
+
+                        dbContext.User.Where(x => x.Id == UserId).FirstOrDefault().ImageUrl = "ProfileImages/" + guid + extension;
+                        dbContext.SaveChanges();
+
+                        response = "ProfileImages/" + guid + extension;
+                    }
+                }
+            }
+
+            return response;
+        }
+
+        [AllowAnonymous]
+        [Authorize]
         [HttpDelete]
         public int Delete(int id)
         {
@@ -179,6 +182,23 @@ namespace Alpha.Controllers
             } else
             {
                 return 0;
+            }
+        }
+
+        [AllowAnonymous]
+        [Authorize]
+        [HttpGet]
+        public UserPresentationModel GetUserProfile(int Id)
+        {
+            alphaReportEntities dbContext = new alphaReportEntities();
+            User user = new User();
+            user = dbContext.User.Where(x => x.Id == Id).FirstOrDefault();
+            if(user != null)
+            {
+                return new UserPresentationModel(user);
+            } else
+            {
+                return null;
             }
         }
 

@@ -45,6 +45,8 @@
           <Property Name="Address" Type="text" Nullable="false" />
           <Property Name="DocumentName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IsCompleted" Type="tinyint" Nullable="false" />
+          <Property Name="CompletedDate" Type="datetime" />
+          <Property Name="CompletedBy" Type="int" />
         </EntityType>
         <EntityType Name="CodeProjectDocument">
           <Key>
@@ -90,6 +92,15 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="Comment" Type="text" />
           <Property Name="Approval" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DailyReportImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeReportId" Type="int" Nullable="false" />
+          <Property Name="ImageUrl" Type="text" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="DailyTask">
           <Key>
@@ -222,14 +233,6 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="UserId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserToken">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Token" Type="varchar" MaxLength="4096" Nullable="false" />
         </EntityType>
         <EntityType Name="Weather">
           <Key>
@@ -440,6 +443,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DailyReportImage_CodeReport">
+          <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="1" />
+          <End Role="DailyReportImage" Type="Self.DailyReportImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DailyReportImage">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DailyTask_CodeReport">
           <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="1" />
           <End Role="DailyTask" Type="Self.DailyTask" Multiplicity="*" />
@@ -608,18 +623,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserToken_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserToken" Type="Self.UserToken" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserToken">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_WeatherReport_CodeReport">
           <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="1" />
           <End Role="Weather" Type="Self.Weather" Multiplicity="*" />
@@ -652,6 +655,7 @@
           <EntitySet Name="CodeProjectUser" EntityType="Self.CodeProjectUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CodeReport" EntityType="Self.CodeReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CodeReportApproval" EntityType="Self.CodeReportApproval" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyReportImage" EntityType="Self.DailyReportImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DailyTask" EntityType="Self.DailyTask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
@@ -664,7 +668,6 @@
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPosition" EntityType="Self.UserPosition" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserToken" EntityType="Self.UserToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Weather" EntityType="Self.Weather" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_client_client" Association="Self.FK_client_client">
@@ -731,6 +734,10 @@
             <End Role="User" EntitySet="User" />
             <End Role="CodeReportApproval" EntitySet="CodeReportApproval" />
           </AssociationSet>
+          <AssociationSet Name="FK_DailyReportImage_CodeReport" Association="Self.FK_DailyReportImage_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="DailyReportImage" EntitySet="DailyReportImage" />
+          </AssociationSet>
           <AssociationSet Name="FK_DailyTask_CodeReport" Association="Self.FK_DailyTask_CodeReport">
             <End Role="CodeReport" EntitySet="CodeReport" />
             <End Role="DailyTask" EntitySet="DailyTask" />
@@ -787,10 +794,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserPosition" EntitySet="UserPosition" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserToken_User" Association="Self.FK_UserToken_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserToken" EntitySet="UserToken" />
-          </AssociationSet>
           <AssociationSet Name="FK_WeatherReport_CodeReport" Association="Self.FK_WeatherReport_CodeReport">
             <End Role="CodeReport" EntitySet="CodeReport" />
             <End Role="Weather" EntitySet="Weather" />
@@ -812,6 +815,7 @@
           <EntitySet Name="CodeProjectUser" EntityType="alphaReportModel.CodeProjectUser" />
           <EntitySet Name="CodeReport" EntityType="alphaReportModel.CodeReport" />
           <EntitySet Name="CodeReportApproval" EntityType="alphaReportModel.CodeReportApproval" />
+          <EntitySet Name="DailyReportImage" EntityType="alphaReportModel.DailyReportImage" />
           <EntitySet Name="DailyTask" EntityType="alphaReportModel.DailyTask" />
           <EntitySet Name="Material" EntityType="alphaReportModel.Material" />
           <EntitySet Name="Project" EntityType="alphaReportModel.Project" />
@@ -824,7 +828,6 @@
           <EntitySet Name="User" EntityType="alphaReportModel.User" />
           <EntitySet Name="UserLogin" EntityType="alphaReportModel.UserLogin" />
           <EntitySet Name="UserPosition" EntityType="alphaReportModel.UserPosition" />
-          <EntitySet Name="UserToken" EntityType="alphaReportModel.UserToken" />
           <EntitySet Name="Weather" EntityType="alphaReportModel.Weather" />
           <EntitySet Name="Worker" EntityType="alphaReportModel.Worker" />
           <AssociationSet Name="FK_client_client" Association="alphaReportModel.FK_client_client">
@@ -895,6 +898,10 @@
             <End Role="CodeReport" EntitySet="CodeReport" />
             <End Role="CodeReportApproval" EntitySet="CodeReportApproval" />
           </AssociationSet>
+          <AssociationSet Name="FK_DailyReportImage_CodeReport" Association="alphaReportModel.FK_DailyReportImage_CodeReport">
+            <End Role="CodeReport" EntitySet="CodeReport" />
+            <End Role="DailyReportImage" EntitySet="DailyReportImage" />
+          </AssociationSet>
           <AssociationSet Name="FK_DailyTask_CodeReport" Association="alphaReportModel.FK_DailyTask_CodeReport">
             <End Role="CodeReport" EntitySet="CodeReport" />
             <End Role="DailyTask" EntitySet="DailyTask" />
@@ -955,10 +962,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserPosition" EntitySet="UserPosition" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserToken_User" Association="alphaReportModel.FK_UserToken_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserToken" EntitySet="UserToken" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -1007,6 +1010,8 @@
           <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DocumentName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsCompleted" Type="Byte" Nullable="false" />
+          <Property Name="CompletedDate" Type="DateTime" Precision="3" />
+          <Property Name="CompletedBy" Type="Int32" />
           <NavigationProperty Name="Client" Relationship="alphaReportModel.FK_codeProject_client" FromRole="CodeProject" ToRole="Client" />
           <NavigationProperty Name="User" Relationship="alphaReportModel.FK_codeProject_users" FromRole="CodeProject" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="alphaReportModel.FK_codeProject_users1" FromRole="CodeProject" ToRole="User" />
@@ -1057,6 +1062,7 @@
           <NavigationProperty Name="User" Relationship="alphaReportModel.FK_CodeReport_User" FromRole="CodeReport" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="alphaReportModel.FK_CodeReport_Users" FromRole="CodeReport" ToRole="User" />
           <NavigationProperty Name="CodeReportApproval" Relationship="alphaReportModel.FK_CodeReportApproval_CodeReport" FromRole="CodeReport" ToRole="CodeReportApproval" />
+          <NavigationProperty Name="DailyReportImage" Relationship="alphaReportModel.FK_DailyReportImage_CodeReport" FromRole="CodeReport" ToRole="DailyReportImage" />
           <NavigationProperty Name="DailyTask" Relationship="alphaReportModel.FK_DailyTask_CodeReport" FromRole="CodeReport" ToRole="DailyTask" />
           <NavigationProperty Name="Material" Relationship="alphaReportModel.FK_ItemReport_CodeReport" FromRole="CodeReport" ToRole="Material" />
           <NavigationProperty Name="StatusReport" Relationship="alphaReportModel.FK_StatusReport_CodeReport" FromRole="CodeReport" ToRole="StatusReport" />
@@ -1076,6 +1082,16 @@
           <Property Name="Approval" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_CodeReportApproval_CodeReport" FromRole="CodeReportApproval" ToRole="CodeReport" />
           <NavigationProperty Name="User" Relationship="alphaReportModel.FK_CodeReportApproval_User" FromRole="CodeReportApproval" ToRole="User" />
+        </EntityType>
+        <EntityType Name="DailyReportImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeReportId" Type="Int32" Nullable="false" />
+          <Property Name="ImageUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_DailyReportImage_CodeReport" FromRole="DailyReportImage" ToRole="CodeReport" />
         </EntityType>
         <EntityType Name="DailyTask">
           <Key>
@@ -1217,7 +1233,6 @@
           <NavigationProperty Name="UserLogin" Relationship="alphaReportModel.FK_UserLogin_User" FromRole="User" ToRole="UserLogin" />
           <NavigationProperty Name="UserPosition" Relationship="alphaReportModel.FK_UserPosition_Users" FromRole="User" ToRole="UserPosition" />
           <NavigationProperty Name="UserPosition1" Relationship="alphaReportModel.FK_UserPosition_Users1" FromRole="User" ToRole="UserPosition" />
-          <NavigationProperty Name="UserToken" Relationship="alphaReportModel.FK_UserToken_User" FromRole="User" ToRole="UserToken" />
         </EntityType>
         <EntityType Name="UserLogin">
           <Key>
@@ -1240,15 +1255,6 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="alphaReportModel.FK_UserPosition_Users" FromRole="UserPosition" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="alphaReportModel.FK_UserPosition_Users1" FromRole="UserPosition" ToRole="User" />
-        </EntityType>
-        <EntityType Name="UserToken">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Token" Type="String" Nullable="false" MaxLength="4096" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_UserToken_User" FromRole="UserToken" ToRole="User" />
         </EntityType>
         <EntityType Name="Weather">
           <Key>
@@ -1473,6 +1479,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DailyReportImage_CodeReport">
+          <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="1" />
+          <End Type="alphaReportModel.DailyReportImage" Role="DailyReportImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeReport">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DailyReportImage">
+              <PropertyRef Name="CodeReportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DailyTask_CodeReport">
           <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="1" />
           <End Type="alphaReportModel.DailyTask" Role="DailyTask" Multiplicity="*" />
@@ -1653,18 +1671,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserToken_User">
-          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
-          <End Type="alphaReportModel.UserToken" Role="UserToken" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserToken">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1702,6 +1708,8 @@
           <EntitySetMapping Name="CodeProject">
             <EntityTypeMapping TypeName="alphaReportModel.CodeProject">
               <MappingFragment StoreEntitySet="CodeProject">
+                <ScalarProperty Name="CompletedBy" ColumnName="CompletedBy" />
+                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
                 <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
                 <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -1759,6 +1767,16 @@
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CodeReportId" ColumnName="CodeReportId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyReportImage">
+            <EntityTypeMapping TypeName="alphaReportModel.DailyReportImage">
+              <MappingFragment StoreEntitySet="DailyReportImage">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
                 <ScalarProperty Name="CodeReportId" ColumnName="CodeReportId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1904,15 +1922,6 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
                 <ScalarProperty Name="Position" ColumnName="Position" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserToken">
-            <EntityTypeMapping TypeName="alphaReportModel.UserToken">
-              <MappingFragment StoreEntitySet="UserToken">
-                <ScalarProperty Name="Token" ColumnName="Token" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
