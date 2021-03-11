@@ -12,6 +12,10 @@ using System.Security.Claims;
 using System.Text;
 using System.Security.Cryptography;
 using System.Web;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace Alpha.Controllers
 {
@@ -121,24 +125,67 @@ namespace Alpha.Controllers
             {
                 foreach (string keys in array)
                 {
-                    var File = Files.Get(keys);
-                    if (File != null && File.ContentLength > 0)
+                    var file = Files.Get(keys);
+                    if (file != null && file.ContentLength > 0)
                     {
-                        var ext = File.FileName.Substring(File.FileName.LastIndexOf('.'));
+                        var ext = file.FileName.Substring(file.FileName.LastIndexOf('.'));
                         var extension = ext.ToLower();
                         var guid = Guid.NewGuid();
                         string filePath = HttpContext.Current.Server.MapPath("~/ProfileImages/" + guid + extension);
-                        File.SaveAs(filePath);
+                        file.SaveAs(filePath);
 
-                        dbContext.User.Where(x => x.Id == UserId).FirstOrDefault().ImageUrl = "ProfileImages/" + guid + extension;
+                        var image = Image.FromFile(filePath);
+                        var height = image.Height;
+                        var width = image.Width;
+
+
+                        //Max Height 250//
+                        var scale = height / 160;
+                        var desiredHeight = 160;
+                        var desiredWidth = width / scale;
+
+                        var newGuid = Guid.NewGuid();
+                        var newPath = HttpContext.Current.Server.MapPath("~/ProfileImages/" + newGuid + extension);
+                        var resizedImage = ResizeImage(image, desiredWidth, desiredHeight);
+                        resizedImage.Save(newPath);
+
+                        var originalImageUrl = dbContext.User.Where(x => x.Id == UserId).First().ImageUrl;
+                        File.Delete(HttpContext.Current.Server.MapPath("~/" + originalImageUrl));
+
+                        dbContext.User.Where(x => x.Id == UserId).FirstOrDefault().ImageUrl = "ProfileImages/" + newGuid + extension;
                         dbContext.SaveChanges();
 
-                        response = "ProfileImages/" + guid + extension;
+                        response = "ProfileImages/" + newGuid + extension;
                     }
                 }
             }
 
             return response;
+        }
+
+        public static Bitmap ResizeImage(Image image, int width, int height)
+        {
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
 
         [AllowAnonymous]

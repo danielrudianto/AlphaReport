@@ -20,6 +20,7 @@ namespace Alpha
         public System.DateTime CreatedDate { get; set; }
         public string Comment { get; set; }
         public byte Approval { get; set; }
+        public byte IsDelete { get; set; }
     
         public virtual CodeReport CodeReport { get; set; }
         public virtual User User { get; set; }

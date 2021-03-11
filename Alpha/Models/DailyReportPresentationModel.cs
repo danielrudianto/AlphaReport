@@ -26,6 +26,10 @@ namespace Alpha.Models
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    Description = x.Description,
+                    Quantity = (x.Quantity.HasValue) ? x.Quantity.Value : 0,
+                    Note = x.Note,
+                    Unit = x.Unit,
                     Children = new List<DailyChildrenTaskFormModel>()
                 };
 
@@ -36,8 +40,9 @@ namespace Alpha.Models
                         Id = z.Id,
                         Name = z.Name,
                         Description = z.Description,
-                        Quantity = z.Quantity.Value,
+                        Quantity = (z.Quantity.HasValue) ? z.Quantity.Value : 0,
                         Unit = z.Unit,
+                        Note = z.Note,
                     });
                 });
 

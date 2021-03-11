@@ -24,8 +24,8 @@ namespace Alpha
             this.CodeProjectDocument = new HashSet<CodeProjectDocument>();
             this.CodeProjectUser = new HashSet<CodeProjectUser>();
             this.CodeReport = new HashSet<CodeReport>();
-            this.CodeReport1 = new HashSet<CodeReport>();
             this.CodeReportApproval = new HashSet<CodeReportApproval>();
+            this.ProjectTask = new HashSet<ProjectTask>();
             this.RequestForInformation = new HashSet<RequestForInformation>();
             this.RequestForInformationAnswer = new HashSet<RequestForInformationAnswer>();
             this.UserLogin = new HashSet<UserLogin>();
@@ -57,9 +57,9 @@ namespace Alpha
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CodeReport> CodeReport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CodeReport> CodeReport1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CodeReportApproval> CodeReportApproval { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectTask> ProjectTask { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequestForInformation> RequestForInformation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

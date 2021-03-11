@@ -27,7 +27,7 @@ namespace Alpha.Models
             rfi.Description = value.Description;
             rfi.AddressedFor = value.AddressedFor;
             rfi.CreatedBy = value.CreatedBy;
-            rfi.CreatedDate = value.CreatedDate;
+            rfi.CreatedDate = DateTime.Now;
             rfi.CodeProjectId = value.CodeProjectId;
 
             return rfi;

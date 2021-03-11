@@ -47,6 +47,8 @@
           <Property Name="IsCompleted" Type="tinyint" Nullable="false" />
           <Property Name="CompletedDate" Type="datetime" />
           <Property Name="CompletedBy" Type="int" />
+          <Property Name="IsDelete" Type="tinyint" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CodeProjectDocument">
           <Key>
@@ -66,7 +68,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="CodeProjectId" Type="int" Nullable="false" />
-          <Property Name="Position" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CodeReport">
           <Key>
@@ -79,8 +80,7 @@
           <Property Name="CodeProjectId" Type="int" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="IsDelete" Type="tinyint" Nullable="false" />
-          <Property Name="DeletedBy" Type="int" />
-          <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="Note" Type="text" />
         </EntityType>
         <EntityType Name="CodeReportApproval">
           <Key>
@@ -92,6 +92,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="Comment" Type="text" />
           <Property Name="Approval" Type="tinyint" Nullable="false" />
+          <Property Name="IsDelete" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="DailyReportImage">
           <Key>
@@ -113,6 +114,7 @@
           <Property Name="Quantity" Type="float" />
           <Property Name="ParentId" Type="int" />
           <Property Name="CodeReportId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="text" />
         </EntityType>
         <EntityType Name="Material">
           <Key>
@@ -144,6 +146,18 @@
           <Property Name="Description" Type="text" Nullable="false" />
           <Property Name="Unit" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="ProjectTask">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="text" Nullable="false" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="RequestForInformation">
           <Key>
             <PropertyRef Name="Id" />
@@ -155,6 +169,7 @@
           <Property Name="Description" Type="text" Nullable="false" />
           <Property Name="Header" Type="text" Nullable="false" />
           <Property Name="AddressedFor" Type="text" />
+          <Property Name="IsDelete" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="RequestForInformationAnswer">
           <Key>
@@ -165,6 +180,7 @@
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="RequestForInformationId" Type="int" Nullable="false" />
+          <Property Name="IsDelete" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="RequestForInformationDocument">
           <Key>
@@ -407,18 +423,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CodeReport_Users">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CodeReport">
-              <PropertyRef Name="DeletedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CodeReportApproval_CodeReport">
           <End Role="CodeReport" Type="Self.CodeReport" Multiplicity="1" />
           <End Role="CodeReportApproval" Type="Self.CodeReportApproval" Multiplicity="*" />
@@ -488,6 +492,30 @@
             </Principal>
             <Dependent Role="Project">
               <PropertyRef Name="CodeProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTask_ProjectTask">
+          <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="0..1" />
+          <End Role="ProjectTask1" Type="Self.ProjectTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTask">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectTask1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTask_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectTask">
+              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -659,6 +687,7 @@
           <EntitySet Name="DailyTask" EntityType="Self.DailyTask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectTask" EntityType="Self.ProjectTask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestForInformation" EntityType="Self.RequestForInformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestForInformationAnswer" EntityType="Self.RequestForInformationAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestForInformationDocument" EntityType="Self.RequestForInformationDocument" Schema="dbo" store:Type="Tables" />
@@ -722,10 +751,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="CodeReport" EntitySet="CodeReport" />
           </AssociationSet>
-          <AssociationSet Name="FK_CodeReport_Users" Association="Self.FK_CodeReport_Users">
-            <End Role="User" EntitySet="User" />
-            <End Role="CodeReport" EntitySet="CodeReport" />
-          </AssociationSet>
           <AssociationSet Name="FK_CodeReportApproval_CodeReport" Association="Self.FK_CodeReportApproval_CodeReport">
             <End Role="CodeReport" EntitySet="CodeReport" />
             <End Role="CodeReportApproval" EntitySet="CodeReportApproval" />
@@ -749,6 +774,14 @@
           <AssociationSet Name="FK_Project_codeProject" Association="Self.FK_Project_codeProject">
             <End Role="CodeProject" EntitySet="CodeProject" />
             <End Role="Project" EntitySet="Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTask_ProjectTask" Association="Self.FK_ProjectTask_ProjectTask">
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
+            <End Role="ProjectTask1" EntitySet="ProjectTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTask_User" Association="Self.FK_ProjectTask_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
           </AssociationSet>
           <AssociationSet Name="FK_RequestForInformation_CodeProject" Association="Self.FK_RequestForInformation_CodeProject">
             <End Role="CodeProject" EntitySet="CodeProject" />
@@ -819,6 +852,7 @@
           <EntitySet Name="DailyTask" EntityType="alphaReportModel.DailyTask" />
           <EntitySet Name="Material" EntityType="alphaReportModel.Material" />
           <EntitySet Name="Project" EntityType="alphaReportModel.Project" />
+          <EntitySet Name="ProjectTask" EntityType="alphaReportModel.ProjectTask" />
           <EntitySet Name="RequestForInformation" EntityType="alphaReportModel.RequestForInformation" />
           <EntitySet Name="RequestForInformationAnswer" EntityType="alphaReportModel.RequestForInformationAnswer" />
           <EntitySet Name="RequestForInformationDocument" EntityType="alphaReportModel.RequestForInformationDocument" />
@@ -890,10 +924,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="CodeReport" EntitySet="CodeReport" />
           </AssociationSet>
-          <AssociationSet Name="FK_CodeReport_Users" Association="alphaReportModel.FK_CodeReport_Users">
-            <End Role="User" EntitySet="User" />
-            <End Role="CodeReport" EntitySet="CodeReport" />
-          </AssociationSet>
           <AssociationSet Name="FK_CodeReportApproval_CodeReport" Association="alphaReportModel.FK_CodeReportApproval_CodeReport">
             <End Role="CodeReport" EntitySet="CodeReport" />
             <End Role="CodeReportApproval" EntitySet="CodeReportApproval" />
@@ -929,6 +959,14 @@
           <AssociationSet Name="FK_CodeReportApproval_User" Association="alphaReportModel.FK_CodeReportApproval_User">
             <End Role="User" EntitySet="User" />
             <End Role="CodeReportApproval" EntitySet="CodeReportApproval" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTask_ProjectTask" Association="alphaReportModel.FK_ProjectTask_ProjectTask">
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
+            <End Role="ProjectTask1" EntitySet="ProjectTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectTask_User" Association="alphaReportModel.FK_ProjectTask_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
           </AssociationSet>
           <AssociationSet Name="FK_RequestForInformation_Users" Association="alphaReportModel.FK_RequestForInformation_Users">
             <End Role="User" EntitySet="User" />
@@ -1012,6 +1050,8 @@
           <Property Name="IsCompleted" Type="Byte" Nullable="false" />
           <Property Name="CompletedDate" Type="DateTime" Precision="3" />
           <Property Name="CompletedBy" Type="Int32" />
+          <Property Name="IsDelete" Type="Byte" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="alphaReportModel.FK_codeProject_client" FromRole="CodeProject" ToRole="Client" />
           <NavigationProperty Name="User" Relationship="alphaReportModel.FK_codeProject_users" FromRole="CodeProject" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="alphaReportModel.FK_codeProject_users1" FromRole="CodeProject" ToRole="User" />
@@ -1041,7 +1081,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="CodeProjectId" Type="Int32" Nullable="false" />
-          <Property Name="Position" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CodeProject" Relationship="alphaReportModel.FK_CodeProjectUser_CodeProject" FromRole="CodeProjectUser" ToRole="CodeProject" />
           <NavigationProperty Name="User" Relationship="alphaReportModel.FK_CodeProjectUser_User" FromRole="CodeProjectUser" ToRole="User" />
         </EntityType>
@@ -1056,11 +1095,9 @@
           <Property Name="CodeProjectId" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="IsDelete" Type="Byte" Nullable="false" />
-          <Property Name="DeletedBy" Type="Int32" />
-          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CodeProject" Relationship="alphaReportModel.FK_CodeReport_codeProject" FromRole="CodeReport" ToRole="CodeProject" />
           <NavigationProperty Name="User" Relationship="alphaReportModel.FK_CodeReport_User" FromRole="CodeReport" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="alphaReportModel.FK_CodeReport_Users" FromRole="CodeReport" ToRole="User" />
           <NavigationProperty Name="CodeReportApproval" Relationship="alphaReportModel.FK_CodeReportApproval_CodeReport" FromRole="CodeReport" ToRole="CodeReportApproval" />
           <NavigationProperty Name="DailyReportImage" Relationship="alphaReportModel.FK_DailyReportImage_CodeReport" FromRole="CodeReport" ToRole="DailyReportImage" />
           <NavigationProperty Name="DailyTask" Relationship="alphaReportModel.FK_DailyTask_CodeReport" FromRole="CodeReport" ToRole="DailyTask" />
@@ -1080,6 +1117,7 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Approval" Type="Byte" Nullable="false" />
+          <Property Name="IsDelete" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_CodeReportApproval_CodeReport" FromRole="CodeReportApproval" ToRole="CodeReport" />
           <NavigationProperty Name="User" Relationship="alphaReportModel.FK_CodeReportApproval_User" FromRole="CodeReportApproval" ToRole="User" />
         </EntityType>
@@ -1104,6 +1142,7 @@
           <Property Name="Quantity" Type="Double" />
           <Property Name="ParentId" Type="Int32" />
           <Property Name="CodeReportId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_DailyTask_CodeReport" FromRole="DailyTask" ToRole="CodeReport" />
         </EntityType>
         <EntityType Name="Material">
@@ -1138,6 +1177,21 @@
           <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CodeProject" Relationship="alphaReportModel.FK_Project_codeProject" FromRole="Project" ToRole="CodeProject" />
         </EntityType>
+        <EntityType Name="ProjectTask">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ProjectTask1" Relationship="alphaReportModel.FK_ProjectTask_ProjectTask" FromRole="ProjectTask" ToRole="ProjectTask1" />
+          <NavigationProperty Name="ProjectTask2" Relationship="alphaReportModel.FK_ProjectTask_ProjectTask" FromRole="ProjectTask1" ToRole="ProjectTask" />
+          <NavigationProperty Name="User" Relationship="alphaReportModel.FK_ProjectTask_User" FromRole="ProjectTask" ToRole="User" />
+        </EntityType>
         <EntityType Name="RequestForInformation">
           <Key>
             <PropertyRef Name="Id" />
@@ -1149,6 +1203,7 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Header" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="AddressedFor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsDelete" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CodeProject" Relationship="alphaReportModel.FK_RequestForInformation_CodeProject" FromRole="RequestForInformation" ToRole="CodeProject" />
           <NavigationProperty Name="User" Relationship="alphaReportModel.FK_RequestForInformation_Users" FromRole="RequestForInformation" ToRole="User" />
           <NavigationProperty Name="RequestForInformationAnswer" Relationship="alphaReportModel.FK_RequestForInformationAnswer_RequestForInformation" FromRole="RequestForInformation" ToRole="RequestForInformationAnswer" />
@@ -1163,6 +1218,7 @@
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RequestForInformationId" Type="Int32" Nullable="false" />
+          <Property Name="IsDelete" Type="Byte" Nullable="false" />
           <NavigationProperty Name="RequestForInformation" Relationship="alphaReportModel.FK_RequestForInformationAnswer_RequestForInformation" FromRole="RequestForInformationAnswer" ToRole="RequestForInformation" />
           <NavigationProperty Name="User" Relationship="alphaReportModel.FK_RequestForInformationAnswer_Users" FromRole="RequestForInformationAnswer" ToRole="User" />
         </EntityType>
@@ -1226,8 +1282,8 @@
           <NavigationProperty Name="CodeProjectDocument" Relationship="alphaReportModel.FK_CodeProjectDocument_User" FromRole="User" ToRole="CodeProjectDocument" />
           <NavigationProperty Name="CodeProjectUser" Relationship="alphaReportModel.FK_CodeProjectUser_User" FromRole="User" ToRole="CodeProjectUser" />
           <NavigationProperty Name="CodeReport" Relationship="alphaReportModel.FK_CodeReport_User" FromRole="User" ToRole="CodeReport" />
-          <NavigationProperty Name="CodeReport1" Relationship="alphaReportModel.FK_CodeReport_Users" FromRole="User" ToRole="CodeReport" />
           <NavigationProperty Name="CodeReportApproval" Relationship="alphaReportModel.FK_CodeReportApproval_User" FromRole="User" ToRole="CodeReportApproval" />
+          <NavigationProperty Name="ProjectTask" Relationship="alphaReportModel.FK_ProjectTask_User" FromRole="User" ToRole="ProjectTask" />
           <NavigationProperty Name="RequestForInformation" Relationship="alphaReportModel.FK_RequestForInformation_Users" FromRole="User" ToRole="RequestForInformation" />
           <NavigationProperty Name="RequestForInformationAnswer" Relationship="alphaReportModel.FK_RequestForInformationAnswer_Users" FromRole="User" ToRole="RequestForInformationAnswer" />
           <NavigationProperty Name="UserLogin" Relationship="alphaReportModel.FK_UserLogin_User" FromRole="User" ToRole="UserLogin" />
@@ -1455,18 +1511,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CodeReport_Users">
-          <End Type="alphaReportModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CodeReport">
-              <PropertyRef Name="DeletedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CodeReportApproval_CodeReport">
           <End Type="alphaReportModel.CodeReport" Role="CodeReport" Multiplicity="1" />
           <End Type="alphaReportModel.CodeReportApproval" Role="CodeReportApproval" Multiplicity="*" />
@@ -1571,6 +1615,30 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CodeReportApproval">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTask_ProjectTask">
+          <End Type="alphaReportModel.ProjectTask" Role="ProjectTask" Multiplicity="0..1" />
+          <End Type="alphaReportModel.ProjectTask" Role="ProjectTask1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTask">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectTask1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectTask_User">
+          <End Type="alphaReportModel.User" Role="User" Multiplicity="1" />
+          <End Type="alphaReportModel.ProjectTask" Role="ProjectTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectTask">
               <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
@@ -1708,6 +1776,8 @@
           <EntitySetMapping Name="CodeProject">
             <EntityTypeMapping TypeName="alphaReportModel.CodeProject">
               <MappingFragment StoreEntitySet="CodeProject">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="CompletedBy" ColumnName="CompletedBy" />
                 <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
                 <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
@@ -1738,7 +1808,6 @@
           <EntitySetMapping Name="CodeProjectUser">
             <EntityTypeMapping TypeName="alphaReportModel.CodeProjectUser">
               <MappingFragment StoreEntitySet="CodeProjectUser">
-                <ScalarProperty Name="Position" ColumnName="Position" />
                 <ScalarProperty Name="CodeProjectId" ColumnName="CodeProjectId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1748,8 +1817,7 @@
           <EntitySetMapping Name="CodeReport">
             <EntityTypeMapping TypeName="alphaReportModel.CodeReport">
               <MappingFragment StoreEntitySet="CodeReport">
-                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
-                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="CodeProjectId" ColumnName="CodeProjectId" />
@@ -1763,6 +1831,7 @@
           <EntitySetMapping Name="CodeReportApproval">
             <EntityTypeMapping TypeName="alphaReportModel.CodeReportApproval">
               <MappingFragment StoreEntitySet="CodeReportApproval">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="Approval" ColumnName="Approval" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -1785,6 +1854,7 @@
           <EntitySetMapping Name="DailyTask">
             <EntityTypeMapping TypeName="alphaReportModel.DailyTask">
               <MappingFragment StoreEntitySet="DailyTask">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="CodeReportId" ColumnName="CodeReportId" />
                 <ScalarProperty Name="ParentId" ColumnName="ParentId" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
@@ -1827,9 +1897,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ProjectTask">
+            <EntityTypeMapping TypeName="alphaReportModel.ProjectTask">
+              <MappingFragment StoreEntitySet="ProjectTask">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RequestForInformation">
             <EntityTypeMapping TypeName="alphaReportModel.RequestForInformation">
               <MappingFragment StoreEntitySet="RequestForInformation">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="AddressedFor" ColumnName="AddressedFor" />
                 <ScalarProperty Name="Header" ColumnName="Header" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1843,6 +1927,7 @@
           <EntitySetMapping Name="RequestForInformationAnswer">
             <EntityTypeMapping TypeName="alphaReportModel.RequestForInformationAnswer">
               <MappingFragment StoreEntitySet="RequestForInformationAnswer">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="RequestForInformationId" ColumnName="RequestForInformationId" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

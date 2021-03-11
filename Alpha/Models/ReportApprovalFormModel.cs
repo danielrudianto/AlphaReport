@@ -17,12 +17,14 @@ namespace Alpha.Models
 
         public static CodeReportApproval mapDbObject(ReportApprovalFormModel value)
         {
-            CodeReportApproval codeReportApproval = new CodeReportApproval();
-            codeReportApproval.CodeReportId = value.CodeReportId;
-            codeReportApproval.Approval = value.Approval;
-            codeReportApproval.Comment = (value.Comment == "") ? null : value.Comment;
-            codeReportApproval.CreatedBy = value.UserId;
-            codeReportApproval.CreatedDate = DateTime.Now;
+            CodeReportApproval codeReportApproval = new CodeReportApproval
+            {
+                CodeReportId = value.CodeReportId,
+                Approval = value.Approval,
+                Comment = (value.Comment == "") ? null : value.Comment,
+                CreatedBy = value.UserId,
+                CreatedDate = DateTime.Now
+            };
 
             return codeReportApproval;
         }

@@ -15,5 +15,6 @@ namespace Alpha.Models
         public DateTime CreatedDate { get; set; }
         public int CodeProjectId { get; set; }
         public List<MaterialFormModel> Materials { get; set; }
+        public string Note { get; set; }
     }
 }

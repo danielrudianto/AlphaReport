@@ -59,6 +59,28 @@ namespace Alpha.Controllers
         }
 
         [Authorize]
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("Api/Project/DeleteProject/{Id}/{UserId}")]
+        public int DeleteProject(int Id, int UserId)
+        {
+            alphaReportEntities dbContext = new alphaReportEntities();
+            CodeProject codeProject = new CodeProject();
+            codeProject = dbContext.CodeProject.Where(x => x.Id == Id).FirstOrDefault();
+            if (codeProject != null)
+            {
+                codeProject.IsDelete = 1;
+                codeProject.ConfirmedBy = UserId;
+                return dbContext.SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        [Authorize]
+        [AllowAnonymous]
         [HttpPost]
         public int SetProjectDone(int Id, int UserId)
         {
@@ -87,8 +109,9 @@ namespace Alpha.Controllers
         }
 
         [Authorize]
-        [Route("Api/Project/ConfirmProject")]
-        [HttpPost]
+        [AllowAnonymous]
+        [Route("Api/Project/ConfirmProject/{Id}/{UserId}")]
+        [HttpGet]
         public int ConfirmProject(int Id, int UserId)
         {
             alphaReportEntities dbContext = new alphaReportEntities();
@@ -142,7 +165,7 @@ namespace Alpha.Controllers
         [AllowAnonymous]
         [Route("api/Project/InsertProject")]
         [HttpPost]
-        public int InsertProject(CodeProjectFormModel value)
+        public int InsertProject([FromBody] CodeProjectFormModel value)
         {
             alphaReportEntities dbContext = new alphaReportEntities();
             CodeProject codeProject = new CodeProject();
@@ -174,7 +197,6 @@ namespace Alpha.Controllers
                     CodeProjectUser codeProjectUser = new CodeProjectUser();
                     codeProjectUser.UserId = User.UserId;
                     codeProjectUser.CodeProjectId = ProjectId;
-                    codeProjectUser.Position = User.Position;
 
                     dbContext.CodeProjectUser.Add(codeProjectUser);
                     dbContext.SaveChanges();

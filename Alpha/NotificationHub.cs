@@ -45,5 +45,10 @@ namespace Alpha
         {
             hubContext.Clients.All.newFeed(feed);
         }
+
+        public static void DeleteFeed(int Id)
+        {
+            hubContext.Clients.All.deleteFeed(Id);
+        }
     }
 }

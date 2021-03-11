@@ -25,15 +25,6 @@ namespace Alpha.Models
             CreatedDate = value.CreatedDate;
             CodeProjectId = value.CodeProjectId;
             IsDelete = value.IsDelete;
-            if(value.User1 != null)
-            {
-                DeletedBy = value.User1.FirstName + " " + value.User1.LastName;
-                DeletedDate = value.DeletedDate.Value;
-            } else
-            {
-                DeletedBy = "";
-                DeletedDate = null;
-            }
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Alpha.Models
             });
 
             List<CodeReportApproval> approvalsDb = new List<CodeReportApproval>();
-            approvalsDb = report.CodeReportApproval.ToList();
+            approvalsDb = report.CodeReportApproval.Where(x => x.IsDelete == 0).ToList();
             approvalsDb.ForEach(approvalDb =>
             {
                 response.Approvals.Add(new CodeReportApprovalPresentationModel(approvalDb));

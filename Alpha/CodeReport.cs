@@ -34,12 +34,10 @@ namespace Alpha
         public int CodeProjectId { get; set; }
         public int Type { get; set; }
         public byte IsDelete { get; set; }
-        public Nullable<int> DeletedBy { get; set; }
-        public Nullable<System.DateTime> DeletedDate { get; set; }
+        public string Note { get; set; }
     
         public virtual CodeProject CodeProject { get; set; }
         public virtual User User { get; set; }
-        public virtual User User1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CodeReportApproval> CodeReportApproval { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

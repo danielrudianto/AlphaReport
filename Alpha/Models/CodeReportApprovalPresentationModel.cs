@@ -10,6 +10,7 @@ namespace Alpha.Models
         public int Id { get; set; }
         public int CodeReportId { get; set; }
         public string CreatedBy { get; set; }
+        public string CreatedByImage { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string Comment { get; set; }
         public byte Approval { get; set; }
@@ -20,6 +21,7 @@ namespace Alpha.Models
             Id = value.Id;
             CodeReportId = value.CodeReportId;
             CreatedBy = value.User.FirstName + " " + value.User.LastName;
+            CreatedByImage = value.User.ImageUrl;
             CreatedDate = value.CreatedDate;
             Comment = value.Comment;
             Approval = value.Approval;

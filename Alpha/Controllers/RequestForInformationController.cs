@@ -35,9 +35,9 @@ namespace Alpha.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         [AllowAnonymous]
-        public int Post([FromBody] RequestForInformationFormModel value)
+        public int Post(RequestForInformationFormModel value)
         {
             if (value == null)
             {
@@ -45,21 +45,29 @@ namespace Alpha.Controllers
             } else
             {
                 alphaReportEntities dbContext = new alphaReportEntities();
-                RequestForInformation rfi = new RequestForInformation();
-                rfi = RequestForInformationFormModel.MapDbObject(value);
-                dbContext.RequestForInformation.Add(rfi);
-                int result = dbContext.SaveChanges();
-                if (result == 1)
+                CodeProject codeProject = dbContext.CodeProject.Where(x => x.Id == value.CodeProjectId).First();
+                if(codeProject == null || codeProject.IsCompleted == 1 || codeProject.IsDelete == 1)
                 {
-                    var response = dbContext.RequestForInformation.Where(x => x.Id == rfi.Id).First();
-                    response.User = dbContext.User.Where(x => x.Id == rfi.CreatedBy).First();
-                    var RFIResponse = new RequestForInformationPresentationModel(response);
-                    NotificationHub.NewFeed(RFIResponse);
-
-                    return rfi.Id;
+                    throw new InvalidOperationException();
                 } else
                 {
-                    return 0;
+                    RequestForInformation rfi = new RequestForInformation();
+                    rfi = RequestForInformationFormModel.MapDbObject(value);
+                    dbContext.RequestForInformation.Add(rfi);
+                    int result = dbContext.SaveChanges();
+                    if (result == 1)
+                    {
+                        var response = dbContext.RequestForInformation.Where(x => x.Id == rfi.Id).First();
+                        response.User = dbContext.User.Where(x => x.Id == rfi.CreatedBy).First();
+                        var RFIResponse = new RequestForInformationPresentationModel(response);
+                        NotificationHub.NewFeed(RFIResponse);
+
+                        return rfi.Id;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
                 }
             }
 

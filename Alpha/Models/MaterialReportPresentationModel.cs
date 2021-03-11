@@ -16,6 +16,7 @@ namespace Alpha.Models
         public int CodeProjectId { get; set; }
         public List<MaterialPresentationModel> Materials { get; set; }
         public List<CodeReportApprovalPresentationModel> Approvals { get; set; }
+        public string Note { get; set; }
 
         public static MaterialReportPresentationModel ParseReport(CodeReport report)
         {
@@ -27,7 +28,8 @@ namespace Alpha.Models
                 CreatedDate = report.CreatedDate,
                 CodeProjectId = report.CodeProjectId,
                 Materials = new List<MaterialPresentationModel>(),
-                Approvals = new List<CodeReportApprovalPresentationModel>()
+                Approvals = new List<CodeReportApprovalPresentationModel>(),
+                Note = report.Note
             };
 
             List<Material> MaterialsDb = new List<Material>();
@@ -38,7 +40,7 @@ namespace Alpha.Models
             });
 
             List<CodeReportApproval> approvalsDb = new List<CodeReportApproval>();
-            approvalsDb = report.CodeReportApproval.ToList();
+            approvalsDb = report.CodeReportApproval.Where(x => x.IsDelete == 0).ToList();
             approvalsDb.ForEach(approvalDb =>
             {
                 response.Approvals.Add(new CodeReportApprovalPresentationModel(approvalDb));

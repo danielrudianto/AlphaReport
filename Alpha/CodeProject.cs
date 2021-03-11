@@ -36,6 +36,8 @@ namespace Alpha
         public byte IsCompleted { get; set; }
         public Nullable<System.DateTime> CompletedDate { get; set; }
         public Nullable<int> CompletedBy { get; set; }
+        public byte IsDelete { get; set; }
+        public int Type { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual User User { get; set; }

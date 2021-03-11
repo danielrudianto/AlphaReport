@@ -22,7 +22,6 @@ namespace Alpha.Models
             user.Id = value.Id;
             user.UserId = value.UserId;
             user.CodeProjectId = value.CodeProjectId;
-            user.Position = value.Position;
 
             return user;
         }

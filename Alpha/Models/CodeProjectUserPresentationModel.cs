@@ -19,7 +19,7 @@ namespace Alpha.Models
         {
             Id = value.Id;
             User = new UserPresentationModel(value.User);
-            Position = value.Position;
+            Position = value.User.UserPosition.Last().Position;
         }
     }
 }

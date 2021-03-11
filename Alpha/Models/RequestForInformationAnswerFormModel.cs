@@ -15,12 +15,14 @@ namespace Alpha.Models
 
         public static RequestForInformationAnswer MapDbObject(RequestForInformationAnswerFormModel value)
         {
-            RequestForInformationAnswer response = new RequestForInformationAnswer();
-            response.Id = value.Id;
-            response.RequestForInformationId = value.RequestForInformationId;
-            response.CreatedBy = value.CreatedBy;
-            response.CreatedDate = DateTime.Now;
-            response.Answer = value.Answer;
+            RequestForInformationAnswer response = new RequestForInformationAnswer
+            {
+                Id = 0,
+                RequestForInformationId = value.RequestForInformationId,
+                CreatedBy = value.CreatedBy,
+                CreatedDate = DateTime.Now,
+                Answer = value.Answer
+            };
 
             return response;
         }

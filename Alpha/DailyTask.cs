@@ -21,6 +21,7 @@ namespace Alpha
         public Nullable<double> Quantity { get; set; }
         public Nullable<int> ParentId { get; set; }
         public int CodeReportId { get; set; }
+        public string Note { get; set; }
     
         public virtual CodeReport CodeReport { get; set; }
     }

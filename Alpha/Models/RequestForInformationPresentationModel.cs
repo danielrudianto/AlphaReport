@@ -13,13 +13,15 @@ namespace Alpha.Models
         public System.DateTime CreatedDate { get; set; }
         public string Description { get; set; }
         public string Header { get; set; }
+        public int Type { get; set; }
         public List<RequestForInformationAnswerPresentationModel> Answers { get; set; }
         public List<RequestForInformationDocumentPresentationModel> Documents { get; set; }
+
         public RequestForInformationPresentationModel(RequestForInformation value)
         {
             List<RequestForInformationAnswerPresentationModel> answerPresentationModels = new List<RequestForInformationAnswerPresentationModel>();
             List<RequestForInformationAnswer> answerModels = new List<RequestForInformationAnswer>();
-            answerModels = value.RequestForInformationAnswer.ToList();
+            answerModels = value.RequestForInformationAnswer.Where(x => x.IsDelete == 0).ToList();
             answerModels.ForEach(x =>
             {
                 answerPresentationModels.Add(new RequestForInformationAnswerPresentationModel(x));
@@ -42,6 +44,7 @@ namespace Alpha.Models
             AddressedFor = value.AddressedFor;
             Answers = answerPresentationModels;
             Documents = documentPresentationModels;
+            Type = 5;
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Alpha.Controllers
             alphaReportEntities dbContext = new alphaReportEntities();
             UserPosition userPosition = new UserPosition();
             int UserId = dbContext.UserPosition.Where(x => x.Id == Id).Select(y => y.UserId).FirstOrDefault();
-            userPosition = dbContext.UserPosition.Where(x => x.Id == Id && x.EffectiveDate >= DateTime.Now).FirstOrDefault();
+            userPosition = dbContext.UserPosition.Where(x => x.Id == Id).FirstOrDefault();
             int positionCount = dbContext.UserPosition.Where(x => x.UserId == UserId).Count();
             if(userPosition != null && positionCount > 1)
             {

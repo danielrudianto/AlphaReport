@@ -18,10 +18,10 @@ namespace Alpha.Models
         {
             alphaReportEntities dbContext = new alphaReportEntities();
             List<CodeReport> Reports = new List<CodeReport>();
-            Reports = dbContext.CodeReport.Where(x => x.CodeProjectId == CodeProjectId).ToList();
+            Reports = dbContext.CodeReport.Where(x => x.CodeProjectId == CodeProjectId && x.IsDelete == 0).ToList();
             List<RequestForInformation> Rfis = new List<RequestForInformation>();
 
-            Rfis = dbContext.RequestForInformation.Where(x => x.CodeProjectId == CodeProjectId).ToList();
+            Rfis = dbContext.RequestForInformation.Where(x => x.CodeProjectId == CodeProjectId && x.IsDelete == 0).ToList();
             Rfis.ForEach(Rfi =>
             {
                 var CodeReport = new CodeReport();
@@ -72,6 +72,37 @@ namespace Alpha.Models
             });
 
             return EndResult;
+        }
+
+        [Authorize]
+        [AllowAnonymous]
+        [HttpDelete]
+        public int Delete(int Id, int UserId)
+        {
+            alphaReportEntities dbContext = new alphaReportEntities();
+            User user = new User();
+            user = dbContext.User.Where(x => x.Id == UserId).First();
+
+            UserPresentationModel userPresentationModel = new UserPresentationModel(user);
+            var position = userPresentationModel.LastPosition.PositionId.Value;
+
+            CodeReport codeReport = new CodeReport();
+            codeReport = dbContext.CodeReport.Where(x => x.Id == Id && x.IsDelete == 0).FirstOrDefault();
+            if(codeReport != null && position > 2)
+            {
+                codeReport.IsDelete = 1;
+                var result = dbContext.SaveChanges();
+
+                if(result == 1)
+                {
+                    NotificationHub.DeleteFeed(Id);
+                }
+
+                return result;
+            } else
+            {
+                return 0;
+            }
         }
     }
 }

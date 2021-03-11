@@ -10,6 +10,7 @@ namespace Alpha.Models
         public int? Id;
         public string Answer { get; set; }
         public string CreatedBy { get; set; }
+        public string CreatedByImage { get; set; }
         public int UserId { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int RequestForInformationId { get; set; }
@@ -19,6 +20,7 @@ namespace Alpha.Models
             UserId = value.CreatedBy;
             Answer = value.Answer;
             CreatedBy = value.User.FirstName + " " + value.User.LastName;
+            CreatedByImage = value.User.ImageUrl;
             CreatedDate = value.CreatedDate;
             RequestForInformationId = value.RequestForInformationId;
         }

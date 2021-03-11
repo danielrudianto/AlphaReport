@@ -19,6 +19,7 @@ namespace Alpha
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int RequestForInformationId { get; set; }
+        public byte IsDelete { get; set; }
     
         public virtual RequestForInformation RequestForInformation { get; set; }
         public virtual User User { get; set; }

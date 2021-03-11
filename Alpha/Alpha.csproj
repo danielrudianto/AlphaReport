@@ -271,6 +271,7 @@
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ClientContactController.cs" />
+    <Compile Include="Controllers\ProjectTaskController.cs" />
     <Compile Include="Controllers\ReportApprovalController.cs" />
     <Compile Include="Controllers\DailyReportController.cs" />
     <Compile Include="Controllers\StatusReportController.cs" />
@@ -305,6 +306,8 @@
     <Compile Include="Controllers\ReportFeedController.cs" />
     <Compile Include="Models\DailyReportPresentationModel.cs" />
     <Compile Include="Models\DailyReportFormModel.cs" />
+    <Compile Include="Models\ProjectTaskPresentationModel.cs" />
+    <Compile Include="Models\ProjectTaskFormModel.cs" />
     <Compile Include="Models\RequestForInformationDocumentPresentationModel.cs" />
     <Compile Include="Models\DailyReportImageModel.cs" />
     <Compile Include="Models\StatusReportImageModel.cs" />
@@ -349,6 +352,9 @@
     <Compile Include="Models\ClientFormModel.cs" />
     <Compile Include="NotificationHub.cs" />
     <Compile Include="Project.cs">
+      <DependentUpon>AlphaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectTask.cs">
       <DependentUpon>AlphaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -478,6 +484,7 @@
     <Folder Include="RequestForInformationDocument\" />
     <Folder Include="StatusReport\" />
     <Folder Include="Views\Hub\" />
+    <Folder Include="Views\ProjectTask\" />
     <Folder Include="Views\ReportFeed\" />
     <Folder Include="Views\RequestForInformation\" />
     <Folder Include="Views\WorkerReport\" />

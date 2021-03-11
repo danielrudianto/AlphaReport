@@ -42,11 +42,12 @@ namespace Alpha.Controllers
                         {
                             Id = 0,
                             Name = Task.Name,
-                            Description = null,
+                            Description = Task.Description,
                             CodeReportId = id,
                             ParentId = null,
                             Quantity = null,
-                            Unit = null
+                            Unit = null,
+                            Note = null
                         };
 
                         dbContext.DailyTask.Add(dailyTask);
@@ -64,7 +65,8 @@ namespace Alpha.Controllers
                                     CodeReportId = id,
                                     ParentId = parentId,
                                     Quantity = childTask.Quantity,
-                                    Unit = childTask.Unit
+                                    Unit = childTask.Unit,
+                                    Note = childTask.Note
                                 };
 
                                 dbContext.DailyTask.Add(childTaskModel);

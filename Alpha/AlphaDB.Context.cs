@@ -36,6 +36,7 @@ namespace Alpha
         public virtual DbSet<DailyTask> DailyTask { get; set; }
         public virtual DbSet<Material> Material { get; set; }
         public virtual DbSet<Project> Project { get; set; }
+        public virtual DbSet<ProjectTask> ProjectTask { get; set; }
         public virtual DbSet<RequestForInformation> RequestForInformation { get; set; }
         public virtual DbSet<RequestForInformationAnswer> RequestForInformationAnswer { get; set; }
         public virtual DbSet<RequestForInformationDocument> RequestForInformationDocument { get; set; }

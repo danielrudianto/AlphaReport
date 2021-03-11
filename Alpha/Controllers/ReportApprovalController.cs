@@ -42,16 +42,53 @@ namespace Alpha.Models
                 return 0;
             } else
             {
-                var item = ReportApprovalFormModel.mapDbObject(value);
-                dbContext.CodeReportApproval.Add(item);
-                var result = dbContext.SaveChanges();
-                if(result == 1)
+                var validateProject = dbContext.CodeProject.Where(x => x.Id == codeReport.CodeProjectId && x.IsCompleted == 0 && x.IsDelete == 0).Any();
+                if (validateProject)
                 {
+                    var item = ReportApprovalFormModel.mapDbObject(value);
                     item.User = dbContext.User.Where(x => x.Id == value.UserId).First();
-                    NotificationHub.UpdateApprovals(item);
+                    var existingApprovals = dbContext.CodeReportApproval.Where(x => x.CodeReportId == item.CodeReportId && x.Approval != 0 && x.CreatedBy == value.UserId).Any();
+                    switch (item.Approval)
+                    {
+                        case 1:
+                            if(!existingApprovals)
+                            {
+                                dbContext.CodeReportApproval.Add(item);
+                                int result = dbContext.SaveChanges();
+                                if(result == 1)
+                                {
+                                    NotificationHub.UpdateApprovals(item);
+                                }
+                            } else
+                            {
+                                return 0;
+                            }
+                            break;
+                        case 2:
+                            if (!existingApprovals)
+                            {
+                                dbContext.CodeReportApproval.Add(item);
+                                int result = dbContext.SaveChanges();
+                                if (result == 1)
+                                {
+                                    NotificationHub.UpdateApprovals(item);
+                                }
+                            }
+                            else
+                            {
+                                return 0;
+                            }
+                            break;
+                        case 0:
+                            dbContext.CodeReportApproval.Add(item);
+                            NotificationHub.UpdateApprovals(item);
+                            break;
+                    }
+                    return 1;
+                } else
+                {
+                    return 0;
                 }
-
-                return result;
             }
         }
     }

@@ -17,7 +17,6 @@ namespace Alpha
         public int Id { get; set; }
         public int UserId { get; set; }
         public int CodeProjectId { get; set; }
-        public int Position { get; set; }
     
         public virtual CodeProject CodeProject { get; set; }
         public virtual User User { get; set; }

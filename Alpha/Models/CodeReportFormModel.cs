@@ -44,8 +44,6 @@ namespace Alpha.Models
             codeReport.CodeProjectId = value.CodeProjectId;
             codeReport.Type = value.Type;
             codeReport.IsDelete = 0;
-            codeReport.DeletedBy = null;
-            codeReport.DeletedDate = null;
 
             return codeReport;
         }

@@ -24,6 +24,7 @@ namespace Alpha.Models
         public List<HttpPostedFile> Documents { get; set; }
         public List<ProjectFormModel> Tasks { get; set; }
         public List<CodeProjectUserFormModel> Users { get; set; }
+        public int Type { get; set; }
 
         public CodeProjectFormModel()
         {
@@ -43,6 +44,7 @@ namespace Alpha.Models
             codeProject.ConfirmedBy = project.ConfirmedBy;
             codeProject.DocumentName = project.DocumentName;
             codeProject.IsCompleted = project.IsCompleted;
+            codeProject.Type = project.Type;
 
             return codeProject;
 

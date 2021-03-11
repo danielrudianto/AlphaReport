@@ -42,6 +42,7 @@ namespace Alpha.Controllers
                 codeReport.CreatedDate = DateTime.Now;
                 codeReport.Date = DateTime.Today;
                 codeReport.Type = value.Type;
+                codeReport.Note = value.Note;
 
                 dbContext.CodeReport.Add(codeReport);
                 int result = dbContext.SaveChanges();

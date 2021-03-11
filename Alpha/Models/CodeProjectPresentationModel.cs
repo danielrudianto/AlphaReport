@@ -24,6 +24,7 @@ namespace Alpha.Models
         public string CompletedBy { get; set; }
         public Nullable<DateTime> CompletedDate { get; set; }
         public double Progress { get; set; }
+        public int Type { get; set; }
 
         public CodeProjectPresentationModel()
         {
@@ -74,7 +75,9 @@ namespace Alpha.Models
             CompletedBy = (dbObject.CompletedBy != null) ? (dbObject.User1.FirstName + " " + dbObject.User1.LastName) : null;
             CompletedDate = dbObject.CompletedDate;
             Users = userPresentations;
-            if(totalTask > 0)
+            Type = dbObject.Type;
+
+            if (totalTask > 0)
             {
                 Progress = completedTask / totalTask;
             } else
