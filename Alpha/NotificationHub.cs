@@ -60,5 +60,10 @@ namespace Alpha
         {
             hubContext.Clients.All.deleteRFIAnswer(rfi);
         }
+
+        public static void DeleteApproval(object feed)
+        {
+            hubContext.Clients.All.deleteApproval(feed);
+        }
     }
 }

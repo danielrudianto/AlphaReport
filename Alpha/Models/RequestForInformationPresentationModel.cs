@@ -14,6 +14,7 @@ namespace Alpha.Models
         public string Description { get; set; }
         public string Header { get; set; }
         public int Type { get; set; }
+        public int CodeProjectId { get; set; }
         public List<RequestForInformationAnswerPresentationModel> Answers { get; set; }
         public List<RequestForInformationDocumentPresentationModel> Documents { get; set; }
 
@@ -44,6 +45,7 @@ namespace Alpha.Models
             AddressedFor = value.AddressedFor;
             Answers = answerPresentationModels;
             Documents = documentPresentationModels;
+            CodeProjectId = value.CodeProjectId;
             Type = 5;
         }
     }

@@ -42,7 +42,7 @@ namespace Alpha.Models
             codeReport = dbContext.CodeReport.Where(x => x.Id == CodeReportId).FirstOrDefault();
             if(codeReport != null)
             {
-                approvals = codeReport.CodeReportApproval.ToList();
+                approvals = codeReport.CodeReportApproval.Where(x => x.IsDelete == 0).ToList();
                 approvals.ForEach(x =>
                 {
                     response.Add(new CodeReportApprovalPresentationModel(x));
@@ -50,6 +50,69 @@ namespace Alpha.Models
             }
 
             return response;
+        }
+
+        [AllowAnonymous]
+        [Authorize]
+        [HttpDelete]
+        public int DeleteApproval(int Id, int UserId)
+        {
+            alphaReportEntities dbContext = new alphaReportEntities();
+            CodeReportApproval codeReportApproval = new CodeReportApproval();
+            codeReportApproval = dbContext.CodeReportApproval.Where(x => x.Id == Id && x.IsDelete == 0).FirstOrDefault();
+            if(codeReportApproval != null)
+            {
+                User user = new User();
+                user = dbContext.User.Where(x => x.Id == UserId).First();
+
+                UserPresentationModel userPresentationModel = new UserPresentationModel(user);
+                if(userPresentationModel.LastPosition.PositionId > 2)
+                {
+                    codeReportApproval.IsDelete = 1;
+                    var result = dbContext.SaveChanges();
+
+                    if(result == 1)
+                    {
+                        object O = new object();
+                        CodeReport codeReport = new CodeReport();
+                        codeReport = dbContext.CodeReport.Where(x => x.Id == codeReportApproval.CodeReportId).First();
+                        switch(codeReport.Type)
+                        {
+                            case 1:
+                                O = WorkerReportPresentationModel.ParseReport(codeReport);
+                                break;
+                            case 2:
+                                O = ToolReportPresentationModel.ParseReport(codeReport);
+                                break;
+                            case 3:
+                                O = MaterialReportPresentationModel.ParseReport(codeReport);
+                                break;
+                            case 4:
+                                O = WeatherReportPresentationModel.ParseReport(codeReport);
+                                break;
+                            case 6:
+                                codeReport.User = dbContext.User.Where(x => x.Id == codeReport.CreatedBy).First();
+                                O = DailyReportPresentationModel.ParseReport(codeReport);
+                                break;
+                            case 7:
+                                O = StatusReportPresentationModel.ParseReport(codeReport);
+                                break;
+                        }
+
+                        CodeReportPresentationModel codeReportPresentationModel = new CodeReportPresentationModel(codeReport);
+
+                        NotificationHub.DeleteApproval(O);
+                    }
+
+                    return result;
+                } else
+                {
+                    return 0;
+                }
+            } else
+            {
+                return 0;
+            }
         }
 
         [AllowAnonymous]
@@ -71,7 +134,7 @@ namespace Alpha.Models
                 {
                     var item = ReportApprovalFormModel.mapDbObject(value);
                     item.User = dbContext.User.Where(x => x.Id == value.UserId).First();
-                    var existingApprovals = dbContext.CodeReportApproval.Where(x => x.CodeReportId == item.CodeReportId && x.Approval != 0 && x.CreatedBy == value.UserId).Any();
+                    var existingApprovals = dbContext.CodeReportApproval.Where(x => x.CodeReportId == item.CodeReportId && x.Approval != 0 && x.CreatedBy == value.UserId && x.IsDelete == 0).Any();
                     switch (item.Approval)
                     {
                         case 1:
