@@ -81,9 +81,77 @@ namespace Alpha.Controllers
             alphaReportEntities dbContext = new alphaReportEntities();
             RequestForInformation requestForInformation = new RequestForInformation();
             requestForInformation = dbContext.RequestForInformation.Where(x => x.Id == Id).First();
+            if(requestForInformation != null)
+            {
+                RequestForInformationPresentationModel response = new RequestForInformationPresentationModel(requestForInformation);
+                return response;
+            } else
+            {
+                return null;
+            }
+            
+        }
 
-            RequestForInformationPresentationModel response = new RequestForInformationPresentationModel(requestForInformation);
-            return response;
+        [Authorize]
+        [AllowAnonymous]
+        [HttpDelete]
+        public int Delete(int Id, int UserId)
+        {
+            alphaReportEntities dbContext = new alphaReportEntities();
+            RequestForInformation requestForInformation = new RequestForInformation();
+            requestForInformation = dbContext.RequestForInformation.Where(x => x.Id == Id && x.IsDelete == 0).First();
+            if(requestForInformation != null)
+            {
+                requestForInformation.IsDelete = 1;
+                var result = dbContext.SaveChanges();
+                if(result == 1)
+                {
+                    NotificationHub.DeleteRFI(Id);
+                }
+
+                return result;
+            } else
+            {
+                return 0;
+            }
+        }
+
+        [Authorize]
+        [AllowAnonymous]
+        [HttpDelete]
+        public int DeleteAnswer(int Id, int UserId)
+        {
+            alphaReportEntities dbContext = new alphaReportEntities();
+
+            RequestForInformationAnswer requestForInformationAnswer = new RequestForInformationAnswer();
+            requestForInformationAnswer = dbContext.RequestForInformationAnswer.Where(x => x.Id == Id && x.IsDelete == 0).FirstOrDefault();
+            if(requestForInformationAnswer != null)
+            {
+                User user = dbContext.User.Where(x => x.Id == UserId).First();
+                UserPresentationModel userPresentationModel = new UserPresentationModel(user);
+                if(userPresentationModel.LastPosition.PositionId > 2)
+                {
+                    requestForInformationAnswer.IsDelete = 1;
+                    var result = dbContext.SaveChanges();
+
+                    if(result == 1)
+                    {
+                        RequestForInformation requestForInformation = new RequestForInformation();
+                        requestForInformation = dbContext.RequestForInformation.Where(x => x.Id == requestForInformationAnswer.RequestForInformationId).First();
+
+                        RequestForInformationPresentationModel requestForInformationPresentationModel = new RequestForInformationPresentationModel(requestForInformation);
+                        NotificationHub.DeleteRFIAnswer(requestForInformationPresentationModel);
+                    }
+
+                    return result;
+                } else
+                {
+                    return 0;
+                }
+            } else
+            {
+                return 0;
+            }
         }
 
         [Authorize]

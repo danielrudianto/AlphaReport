@@ -50,5 +50,15 @@ namespace Alpha
         {
             hubContext.Clients.All.deleteFeed(Id);
         }
+
+        public static void DeleteRFI(int Id)
+        {
+            hubContext.Clients.All.deleteRFI(Id);
+        }
+
+        public static void DeleteRFIAnswer(RequestForInformationPresentationModel rfi)
+        {
+            hubContext.Clients.All.deleteRFIAnswer(rfi);
+        }
     }
 }

@@ -30,6 +30,30 @@ namespace Alpha.Models
 
         [AllowAnonymous]
         [Authorize]
+        [HttpGet]
+        [Route("Api/ReportApproval/GetApprovals/{CodeReportId}")]
+        public List<CodeReportApprovalPresentationModel> GetApprovals(int CodeReportId)
+        {
+            alphaReportEntities dbContext = new alphaReportEntities();
+
+            List<CodeReportApproval> approvals = new List<CodeReportApproval>();
+            List<CodeReportApprovalPresentationModel> response = new List<CodeReportApprovalPresentationModel>();
+            CodeReport codeReport = new CodeReport();
+            codeReport = dbContext.CodeReport.Where(x => x.Id == CodeReportId).FirstOrDefault();
+            if(codeReport != null)
+            {
+                approvals = codeReport.CodeReportApproval.ToList();
+                approvals.ForEach(x =>
+                {
+                    response.Add(new CodeReportApprovalPresentationModel(x));
+                });
+            }
+
+            return response;
+        }
+
+        [AllowAnonymous]
+        [Authorize]
         [HttpPost]
         [Route("Api/ReportApproval/ApproveReport")]
         public int ApproveReport(ReportApprovalFormModel value)
@@ -54,8 +78,8 @@ namespace Alpha.Models
                             if(!existingApprovals)
                             {
                                 dbContext.CodeReportApproval.Add(item);
-                                int result = dbContext.SaveChanges();
-                                if(result == 1)
+                                int result1 = dbContext.SaveChanges();
+                                if(result1 == 1)
                                 {
                                     NotificationHub.UpdateApprovals(item);
                                 }
@@ -68,8 +92,8 @@ namespace Alpha.Models
                             if (!existingApprovals)
                             {
                                 dbContext.CodeReportApproval.Add(item);
-                                int result = dbContext.SaveChanges();
-                                if (result == 1)
+                                int result2 = dbContext.SaveChanges();
+                                if (result2 == 1)
                                 {
                                     NotificationHub.UpdateApprovals(item);
                                 }
@@ -81,7 +105,12 @@ namespace Alpha.Models
                             break;
                         case 0:
                             dbContext.CodeReportApproval.Add(item);
-                            NotificationHub.UpdateApprovals(item);
+                            int result3 = dbContext.SaveChanges();
+                            if(result3 == 1)
+                            {
+                                NotificationHub.UpdateApprovals(item);
+                            }
+                            
                             break;
                     }
                     return 1;
